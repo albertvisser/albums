@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% load i18n %}
+{% block style %} <link rel="stylesheet" type="text/css" href="http://django.pythoneer.nl/styles/muziek.css" />
+<!-- <link rel="stylesheet" type="text/css" href="http://muziek.pythoneer.nl/muziek.css" /> -->
+<!--<link rel="stylesheet" type="text/css" href="/media/css/base.css" /> -->{% endblock %}
+{% block title %}{{ title|escape }} | {% trans 'Pythoneer muziek' %}{% endblock %}
+{% block branding %}{%endblock%}
+{%block breadcrumbs%}<a href="/">{% trans 'Pythoneer!' %}</a> &rsaquo; <a href="/muziek/" title="startpagina muziek">Muziek (start)</a>
+{%if soort%} &rsaquo; <a href="/muziek/{{soort}}/select/{{keuze}}/{{selitem}}/{{sort}}" title="selecteren">select</a>{%endif%}
+{%if nieuw%} &rsaquo; <a href="/muziek/{{soort}}/nieuw/" title="nieuwe opvoeren">nieuw</a>{%endif%}
+{%if album%} &rsaquo; <a href="/muziek/{{soort}}/{{album.id}}/" title="selecteren">detail</a>{%endif%}
+{%if artiesten%} &rsaquo; <a href="/muziek/artiest/lijst/" title="">artiestenlijst</a>{%endif%}
+{%if artiest%} &rsaquo; <a href="/muziek/artiest/{{artiest}}/" title="">nieuw</a>{%endif%}
+{% endblock %}
+{% block nav-global %}{% endblock %}

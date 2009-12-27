@@ -1,0 +1,39 @@
+{% extends "muziek/base_site.html" %}
+{% block title %}Pythoneer Muziek: nieuwe artiest{% endblock %}
+{% block content %}
+<br/>
+<b>{{kop}}</b><br/>
+<hr/>
+<div class="wide" id="album">
+{%if soort%}
+    <span class="left label vet">{%ifequal soort "album"%}Album{%else%}Concert{%endifequal%}:</span>
+    <span class="right">
+        <input type="text" name="txtArtiest" id="txtArtiest" size="25" maxlength="60" value="{{album.artist}}" readonly="readonly"/>
+        <input type="text" name="txtTitel" id="txtTitel" size="60" maxlength="80" value="{{album.name}}" readonly="readonly"/>
+    </span>
+</div>
+{%endif%}
+<form action="/muziek/{{soort}}/{{album.id}}/opname/{%if nieuw%}add{%else%}{{opname.id}}/update{%endif%}/" method="post">
+    <div class="wide" id="soort">
+    <span class="left"><label class="small" for="selMed">Medium:</label></span>
+    <span class="right">
+        <select name="selMed" id="selMed">
+            <option value="0">-- type --</option>{% for y in o_soort %}<option{%if opname%}{%ifequal opname.type y%} selected="selected"{%endifequal%}{%endif%}>{{y}}</option>{% endfor %}
+        </select>
+    </span>
+    </div>
+
+    <div class="wide" id="oms">
+    <span class="left"><label class="small" for="tOms">Omschrijving:</label></span>
+    <span class="right"><input type="text" name="tOms" id="tOms" value="{%if opname%}{{opname.oms}}{%endif%}" size="40"  /></span>
+    </div>
+
+    <div class="wide">&nbsp;</div>
+    <div class="wide" id="submit">
+    <span class="left">&nbsp;</span>
+    <span class="right"><a href="/muziek/{{soort}}/{{album.id}}/opname/{%if nieuw%}nieuw{%else%}{{opname.id}}/edit{%endif%}/" title=""><input type="button" value="Terugzetten" /></a>
+    <input type="submit" value="{%if nieuw%}Opvoeren{%else%}Wijzigen{%endif%}" />
+    </span>
+    </div>
+</form>
+{% endblock %}

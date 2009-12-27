@@ -1,0 +1,21 @@
+{% extends "muziek/base_site.html" %}
+{% block title %}Pythoneer Muziek: artiesten{% endblock %}
+{% block content %}
+    <hr/>
+  <table>
+    <tr><th>Voornaam</th><th>Achternaam</th><th>
+    <a href="/muziek/artiest/nieuw/" title=""><input type="button" value="Nieuw" /></a>
+    <input type="button" value="Terugzetten" onclick="javascript:history.go(-1)" />
+    </th>
+    </tr>
+    {%for x in artiesten%}
+    <tr><td>
+    <form class="regel" action="/muziek/artiest/{{x.id}}/edit/" method="post">
+      <input type="text" name="tnaam" id="tnaam{{x.id}}" value="{{x.first_name}}" size="10" /></td>
+      <td><input type="text" name="tsort" id="tsort{{x.id}}" value="{{x.last_name}}" size="40"  /></td>
+      <td><input type="submit" value="Aanpassen" /></form>
+      </td>
+    </tr>
+    {%endfor%}
+  </table>
+{% endblock %}

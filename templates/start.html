@@ -1,0 +1,99 @@
+{% extends "muziek/base_site.html" %}
+{% block title %}Pythoneer Muziek: start{% endblock %}
+{% block content %}
+<div  class="wide">
+<span class="all">
+<hr />
+</span>
+</div>
+<form action="/muziek/album/select/" method="post">
+    <div class="wide" id="sel_album">
+	    <span class="left3">Selecteer studio-albums op:</span>
+        <span class="right3">
+            {%for x in s_keuzes%}
+            <input type="radio" name="selZoekS" value="{{x.0}}"{%if x.2%} checked="checked"{%endif%}/>{{x.1}}
+            {%ifequal x.0 "artiest"%}
+            <select name="selArtiest">
+                {% for act in actlist %}
+                    <option value="{{ act.id }}">{{ act }}</option>
+                {% endfor %}
+            </select>{%endifequal%}<br />
+            {%endfor%}
+            Zoektekst voor 3 - 5: <input type="text" name="txtZoekS" size="60" maxlength="60" />
+        </span>
+    </div>
+    <div> &nbsp; </div>
+    <div class="wide" id="sort_album">
+        <span class="left">sorteer op:</span>
+        <span class="right">
+            <select name="selSortS">
+            {%for x in s_sorts%}
+                <option value="{{x.0}}"{%if x.2%} selected="selected"{%endif%}>{{x.1}}</option>
+            {%endfor%}
+            </select>
+        </span>
+    </div>
+    <div> &nbsp;</div>
+    <div class="wide" id="submit_album">
+        <span class="left"> &nbsp;</span>
+        <span class="right">
+            <input type="submit" value="Selectie uitvoeren" />
+            <a href="/muziek/album/nieuw/" title=""><input type="button" value="Nieuw album opvoeren"/></a>
+        </span>
+    </div>
+</form>
+<div  class="wide">
+<span class="all">
+<hr />
+</span>
+</div>
+<form action="/muziek/live/select/" method="post">
+    <div class="wide" id="sel_live">
+		<span class="left3">Selecteer concert-opnames op:</span>
+        <span class="right3">
+            {%for x in l_keuzes%}
+            <input type="radio" name="selZoekL" value="{{x.0}}"{%if x.2%} checked="checked"{%endif%}/>{{x.1}}
+            {%ifequal x.0 "artiest"%}
+            <select name="selArtiest">
+                {% for act in actlist %}
+                    <option value="{{ act.id }}">{{ act }}</option>
+                {% endfor %}
+            </select>{%endifequal%}<br />
+            {%endfor%}
+            Zoektekst voor 3 - 4: <input type="text" name="txtZoekL" size="60" maxlength="60" />
+        </span>
+    </div>
+    <div> &nbsp; </div>
+    <div class="wide" id="sort_live">
+        <span class="left">sorteer op:</span>
+        <span class="right">
+            <select name="selSortL">
+            {%for x in l_sorts%}
+                <option value="{{x.0}}"{%if x.2%} selected="selected"{%endif%}>{{x.1}}</option>
+            {%endfor%}
+            </select>
+        </span>
+    </div>
+    <div> &nbsp;</div>
+    <div class="wide" id="submit_live">
+        <span class="left">&nbsp;</span>
+        <span class="right">
+            <input type="submit" value="Selectie uitvoeren" />
+            <a href="/muziek/live/nieuw/" title=""><input type="button" value="Nieuwe opname opvoeren"/></a>
+        </span>
+    </div>
+</form>
+<div  class="wide">
+<span class="all">
+<hr />
+</span>
+</div>
+<div> &nbsp;</div>
+<div class="wide" id="submit_artist">
+    <span class="left">&nbsp;</span>
+    <span class="right">
+        <input type="button" value="Nieuwe artiest opvoeren" onclick="document.location='/muziek/artiest/nieuw/'"/>
+        <input type="button" value="Lijst artiesten / artiest wijzigen" onclick="document.location='/muziek/artiest/lijst/'"/>
+    </span>
+</div>
+{% endblock %}

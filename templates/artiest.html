@@ -1,0 +1,24 @@
+{% extends "muziek/base_site.html" %}
+{% block title %}Pythoneer Muziek: nieuwe artiest{% endblock %}
+{% block content %}
+<form action="/muziek/artiest/add/" method="post">
+    <div class="wide" id="voornaam">
+    <span class="left"><label class="small" for="tNaam">Voornaam:</label></span>
+    <span class="right"><input type="text" name="tNaam" id="tNaam" value="" size="10" /></span>
+    </div>
+
+    <div class="wide" id="achternaam">
+    <span class="left"><label class="small" for="tSort">Achternaam:</label></span>
+    <span class="right"><input type="text" name="tSort" id="tSort" value="" size="40"  /></span>
+    </div>
+
+    <div class="wide" id="spacer">&nbsp;</div>
+    <div class="wide" id="submit">
+    <span class="left">&nbsp;</span>
+    <span class="right">
+    <a href="/muziek/artiest/nieuw/" title=""><input type="button" value="Terugzetten" /></a>
+    <input type="submit" value="Opvoeren" />
+    </span>
+    </div>
+</form>
+{% endblock %}
