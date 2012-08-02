@@ -15,7 +15,7 @@ s_keuzes = (
     ## ("opname", "Opname") ,
     ("producer", "4. Producer"),
     ("credits", "5. Vermelding in Credits"),
-    ## ("bezetting", "6. Vermelding in Bezetting"),
+    ("bezetting", "6. Vermelding in Bezetting"),
     )
 s_sorts = (
     ("artiest", "Uitvoerende"),
@@ -30,7 +30,7 @@ l_keuzes = (
     ## ("opname", "Opname" ),
     ("locatie", "3. Locatie"),
     ("datum", "4. Datum"),
-    ## ("bezetting", "5. Vermelding in Bezetting"),
+    ("bezetting", "5. Vermelding in Bezetting"),
     )
 l_sorts = (
     ("artiest", "Uitvoerende"),
@@ -108,10 +108,10 @@ def select(request,soort="",keuze="",sortorder="",selitem=""):
             sel = sel.filter(credits__icontains=zoektxt)
             kop += " - selectie: credits bevat '%s'" % zoektxt
             selitem = zoektxt
-        ## elif keuze == s_keuzes[5][0]:
-            ## sel = my.Album.objects.filter(bezetting__icontains=zoektxt)
-            ## kop += "selectie: bezetting bevat '%s'" % zoektxt
-            ## selitem = zoektxt
+        elif keuze == s_keuzes[5][0]:
+            sel = sel.filter(bezetting__icontains=zoektxt)
+            kop += "selectie: bezetting bevat '%s'" % zoektxt
+            selitem = zoektxt
         else:
             meld = 'Gekozen selectie kon niet uitgevoerd worden'
         if not meld:
@@ -173,10 +173,10 @@ def select(request,soort="",keuze="",sortorder="",selitem=""):
             sel = sel.filter(produced_by__icontains=zoektxt)
             kop += " - selectie: titel bevat datum '%s'" % zoektxt
             selitem = zoektxt
-        ## elif keuze == s_keuzes[4]:
-            ## sel = my.Album.objects.filter(bezetting__icontains=zoektxt)
-            ## kop += "selectie: bezetting bevat '%s'" % zoektxt
-            ## selitem = zoektxt
+        elif keuze == l_keuzes[4][0]:
+            sel = sel.filter(bezetting__icontains=zoektxt)
+            kop += "selectie: bezetting bevat '%s'" % zoektxt
+            selitem = zoektxt
         else:
             meld = 'Gekozen selectie kon niet uitgevoerd worden'
         if not meld:

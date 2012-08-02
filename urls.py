@@ -18,7 +18,8 @@ urlpatterns = patterns('pythoneer.muziek.views',
     (r'^(?P<soort>artiest)/nieuw/$',                                     'nieuw'),
     (r'^(?P<soort>artiest)/add/$',                                       'wijzig'),
     (r'^artiest/(?P<actie>lijst)/$',                                     'artiest'),
-    (r'^artiest/(?P<actie>lijst)/edit/$',                                'wijzig'),
+    (r'^artiest/(?P<item>\d+)/edit/$',                                'wijzig'),
+    ## (r'^artiest/(?P<actie>lijst)/edit/$',                                'wijzig'),
 
     # Uncomment this for admin:
 #     (r'^admin/', include('django.contrib.admin.urls')),
