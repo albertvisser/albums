@@ -12,6 +12,9 @@
                 <option value="0">-- selecteer titel --</option>
                 {% for x in act_list %}<option value="{{x.id}}">{{x}}</option>{% endfor %}
             </select>
+            <input type='hidden' name='keuze' value='{{keuze}}' />
+            <input type='hidden' name='selitem' value='{{selitem}}' />
+            <input type='hidden' name='sortorder' value='{{sortorder}}' />
         </form>
     </span>
 </div>
@@ -77,6 +80,9 @@
         </span>
     </div>
     <div class="wide" id="submit_album">
+        <input type='hidden' name='keuze' value='{{keuze}}' />
+        <input type='hidden' name='selitem' value='{{selitem}}' />
+        <input type='hidden' name='sortorder' value='{{sortorder}}' />
         <span class="all"><br/><input type="submit" value="Wijzigen" />
         <input type="button" value="Waarden terugzetten" onclick="history.go(-1)"/>
         </span>

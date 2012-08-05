@@ -69,7 +69,7 @@ def index(request):
         "l_sorts": l_sorts,
         })
 
-def select(request,soort="",keuze="",sortorder="",selitem=""):
+def select(request, soort="", keuze="", sortorder="", selitem=""):
     info_dict = {}
     postdict = request.POST
     meld = ''
@@ -110,7 +110,7 @@ def select(request,soort="",keuze="",sortorder="",selitem=""):
             selitem = zoektxt
         elif keuze == s_keuzes[5][0]:
             sel = sel.filter(bezetting__icontains=zoektxt)
-            kop += "selectie: bezetting bevat '%s'" % zoektxt
+            kop += " - selectie: bezetting bevat '%s'" % zoektxt
             selitem = zoektxt
         else:
             meld = 'Gekozen selectie kon niet uitgevoerd worden'
@@ -132,7 +132,7 @@ def select(request,soort="",keuze="",sortorder="",selitem=""):
             info_dict["kop"] = kop
             info_dict["keuze"] = keuze
             info_dict["soort"] = soort
-            info_dict["sort"] = sortorder
+            info_dict["sortorder"] = sortorder
             info_dict["selitem"] = selitem
             info_dict["actlist"] = my.Act.objects.all()
             if len(sel) == 0:
@@ -175,7 +175,7 @@ def select(request,soort="",keuze="",sortorder="",selitem=""):
             selitem = zoektxt
         elif keuze == l_keuzes[4][0]:
             sel = sel.filter(bezetting__icontains=zoektxt)
-            kop += "selectie: bezetting bevat '%s'" % zoektxt
+            kop += " - selectie: bezetting bevat '%s'" % zoektxt
             selitem = zoektxt
         else:
             meld = 'Gekozen selectie kon niet uitgevoerd worden'
@@ -185,7 +185,7 @@ def select(request,soort="",keuze="",sortorder="",selitem=""):
                 kop += " - gesorteerd op artiest"
             elif sortorder == l_sorts[1][0]:
                 sel = sel.order_by('name')
-                kop += " gesorteerd op titel"
+                kop += " gesorteerd op locatie/datum"
             elif sortorder == l_sorts[2][0]:
                 ## sel = sel.order_by('release_year')
                 ## kop += " gesorteerd op jaar"
@@ -197,7 +197,7 @@ def select(request,soort="",keuze="",sortorder="",selitem=""):
             info_dict["kop"] = kop
             info_dict["keuze"] = keuze
             info_dict["soort"] = soort
-            info_dict["sort"] = sortorder
+            info_dict["sortorder"] = sortorder
             info_dict["selitem"] = selitem
             info_dict["actlist"] = my.Act.objects.all()
             if len(sel) == 0:
@@ -211,13 +211,16 @@ def select(request,soort="",keuze="",sortorder="",selitem=""):
     # toon een lijst met my.Album items
     return render_to_response('muziek/select.html',info_dict)
 
-def sel_detail(request,soort="",item=""):
-    sel = request.POST["selAlbum"]
-    return HttpResponseRedirect("/muziek/%s/%s/" % (soort,sel))
+def sel_detail(request, soort="", item=""):
+    postdict = request.POST
+    return HttpResponseRedirect("/muziek/%s/%s/%s/%s/%s/" % (soort, postdict["selAlbum"],
+        postdict['keuze'], postdict['selitem'], postdict['sortorder']))
 
-def detail(request,soort="",item=""):
+def detail(request, soort="", keuze="", selitem="", sortorder="", item=""):
     info_dict = {}
-    ## postdict = request.POST
+    ## getdict = request.GET
+    ## getpath = request.get_full_path()
+    ## return HttpResponse(">>{} {}<<".format(str(getdict), getpath))
     bingo = my.Album.objects.get(pk=item)
     act_id = bingo.artist.id
     ## if bingo.bezetting:
@@ -227,6 +230,9 @@ def detail(request,soort="",item=""):
     info_dict["opn_list"] = bingo.opnames.all()
     info_dict["album"] = bingo
     info_dict["soort"] = soort
+    info_dict["keuze"] = keuze
+    info_dict["selitem"] = selitem
+    info_dict["sortorder"] = sortorder
     info_dict["o_soort"] = o_soort
     info_dict["o_oms"] = o_oms
     info_dict["act_id"] = act_id
@@ -241,13 +247,13 @@ def detail(request,soort="",item=""):
         info_dict["meld"] = 'Albumtype kon niet bepaald worden'
     return render_to_response('muziek/detail.html',info_dict)
 
-def artiest(request,actie=""):
+def artiest(request, actie=""):
     # toon een lijst met my.Act items
     return render_to_response('muziek/artiesten.html',{
         "artiesten": my.Act.objects.all().order_by('last_name'),
         })
 
-def nieuw(request,soort="",item="",type=""):
+def nieuw(request, soort="", item="", type=""):
     if soort in ("album", "live"):
         if type == "track":
             album = my.Album.objects.get(id=item)
@@ -282,8 +288,9 @@ def nieuw(request,soort="",item="",type=""):
             "artiest": "nieuw"
             })
 
-def wijzig(request,soort="",item="",type="",subitem="",actie=""):
+def wijzig(request, soort="", item="", type="", subitem="", actie=""):
     postdict = request.POST
+    return HttpResponse('>{}<'.format(postdict))
     if type == "track":
         album = my.Album.objects.get(id=item)
         if subitem:
@@ -376,7 +383,8 @@ def wijzig(request,soort="",item="",type="",subitem="",actie=""):
             wijzig = True
         if wijzig:
             album.save()
-        return HttpResponseRedirect("/muziek/%s/%s/" % (soort,album.id))
+        return HttpResponseRedirect("/muziek/%s/%s/%s/%s/%s/" % (soort, album.id,
+            postdict['keuze'], postdict['selitem'], postdict['sortorder']))
     elif soort == "artiest":
         if keuze == "add":
             # na toevoegen aan de database: bepaal new_id
