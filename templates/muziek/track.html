@@ -6,7 +6,7 @@
 <hr/>
 <div class="wide" id="album">
 {%if soort%}
-    <span class="left label vet">{%ifequal soort "album"%}Album{%else%}Concert{%endifequal%}:</span>
+    <span class="left label vet">{%if soort == "album"%}Album{%else%}Concert{%endif%}:</span>
     <span class="right">
         <input type="text" name="txtArtiest" id="txtArtiest" size="25" maxlength="60" value="{{album.artist}}" readonly="readonly"/>
         <input type="text" name="txtTitel" id="txtTitel" size="60" maxlength="80" value="{{album.name}}" readonly="readonly"/>

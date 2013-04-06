@@ -12,12 +12,12 @@
         <span class="right3">
             {%for x in s_keuzes%}
             <input type="radio" name="selZoekS" value="{{x.0}}"{%if x.2%} checked="checked"{%endif%}/>{{x.1}}
-            {%ifequal x.0 "artiest"%}
+            {%if x.0 == "artiest"%}
             <select name="selArtiest">
                 {% for act in actlist %}
                     <option value="{{ act.id }}">{{ act }}</option>
                 {% endfor %}
-            </select>{%endifequal%}<br />
+            </select>{%endif%}<br />
             {%endfor%}
             Zoektekst voor 3 - 6: <input type="text" name="txtZoekS" size="60" maxlength="60" />
         </span>
@@ -53,12 +53,12 @@
         <span class="right3">
             {%for x in l_keuzes%}
             <input type="radio" name="selZoekL" value="{{x.0}}"{%if x.2%} checked="checked"{%endif%}/>{{x.1}}
-            {%ifequal x.0 "artiest"%}
+            {%if x.0 == "artiest"%}
             <select name="selArtiest">
                 {% for act in actlist %}
                     <option value="{{ act.id }}">{{ act }}</option>
                 {% endfor %}
-            </select>{%endifequal%}<br />
+            </select>{%endif%}<br />
             {%endfor%}
             Zoektekst voor 3 - 5: <input type="text" name="txtZoekL" size="60" maxlength="60" />
         </span>

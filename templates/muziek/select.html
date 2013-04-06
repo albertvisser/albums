@@ -4,7 +4,7 @@
 <br/>
 <b>{{kop}}</b><br/>
 <form action="/muziek/{{soort}}/select/{{keuze}}/{{sortorder}}/" method="post">
-{% ifequal keuze "artiest"%}
+{% if keuze == "artiest"%}
     Snel naar dezelfde selectie voor een andere artiest:
     <select name="selArtiest" onchange="form.submit()">
         <option value="0">-- selecteer--</option>
@@ -13,7 +13,7 @@
         {% endfor %}
     </select>
 {%else%}
-{%endifequal%}
+{%endif%}
 </form>
 <hr/>
 <div>

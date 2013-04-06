@@ -23,16 +23,16 @@
 <hr />
 <form action="/muziek/{{soort}}/{%if nieuw%}add{%else%}{{album.id}}/edit{%endif%}/" method="post">
     <div class="wide" id="album">
-    {% ifequal soort "album" %}
+    {% if soort == "album" %}
         <span class="wide label vet">Albumgegevens:</span><br/><br/>
         <span class="left"><label class="small" for="txtLabel">Album:</label></span>
     {%else%}
         <span class="left label vet"><label class="small" for="txtLabel">Concert:</label></span>
-    {%endifequal%}
+    {%endif%}
         <span class="right">
             <select name="selArtiest">
                 {% for act in actlist %}
-                {%ifequal act.id act_id%}
+                {%if act.id == act_id%}
                     {%if not nieuw%}
                         <option value="{{ act.id }}" selected="selected">{{ act }}</option>
                     {%else%}
@@ -40,13 +40,13 @@
                     {%endif%}
                 {%else%}
                     <option value="{{ act.id }}">{{ act }}</option>
-                {%endifequal%}
+                {%endif%}
                 {% endfor %}
             </select>
             <input type="text" name="txtTitel" id="txtTitel" size="60" maxlength="80" value="{{album.name}}" />
         </span>
     </div>
-    {% ifequal soort "album" %}
+    {% if soort == "album" %}
     <div class="wide" id="label">
         <span class="left"><label class="small" for="txtLabel">Label/jaar:</label></span>
         <span class="right">
@@ -54,7 +54,7 @@
             <input type="text" name="txtJaar" id="txtJaar" size="6" maxlength="6" value="{{album.release_year}}" />
         </span>
     </div>
-    {%endifequal%}
+    {%endif%}
     <div class="wide" id="producer">
         <span class="left"><label for="txtProduced">Produced by:</label></span>
         <span class="right">
