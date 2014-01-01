@@ -24,14 +24,17 @@
     </div>
 
     <div class="wide" id="oms">
-    <span class="left"><label class="small" for="tOms">Omschrijving:</label></span>
-    <span class="right"><input type="text" name="tOms" id="tOms" value="{%if opname%}{{opname.oms}}{%endif%}" size="40"  /></span>
+    <span class="left"><label class="small" for="txtOms">Omschrijving:</label></span>
+    <span class="right"><input type="text" name="txtOms" id="txtOms" value="{%if opname%}{{opname.oms}}{%endif%}" size="40"  /></span>
     </div>
 
     <div class="wide">&nbsp;</div>
     <div class="wide" id="submit">
     <span class="left">&nbsp;</span>
     <span class="right"><a href="/muziek/{{soort}}/{{album.id}}/opname/{%if nieuw%}nieuw{%else%}{{opname.id}}/edit{%endif%}/" title=""><input type="button" value="Terugzetten" /></a>
+            <input type='hidden' name='keuze' value='{{keuze}}' />
+            <input type='hidden' name='selitem' value='{{selitem}}' />
+            <input type='hidden' name='sortorder' value='{{sortorder}}' />
     <input type="submit" value="{%if nieuw%}Opvoeren{%else%}Wijzigen{%endif%}" />
     </span>
     </div>

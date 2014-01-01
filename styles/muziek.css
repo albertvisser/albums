@@ -1,0 +1,136 @@
+body {
+font:12px/1.2 Verdana, Arial, Helvetica, sans-serif;
+background:#f0e8dc;
+padding:0px;
+margin:10px;
+}
+
+a {
+text-decoration:none;
+color:#c00;
+}
+.groot {
+font-size: x-large;
+}
+.vet {
+font-weight:bold;
+}
+.label {
+color: orange;
+}
+pre {
+font-size:11px;
+color:blue;
+}
+
+form.regel {
+display: inline;
+}
+
+.greek {
+color:#999;
+}
+
+.mess {
+font-weight:bold;
+color:#c00;
+}
+label.small {
+width: 50;
+}
+label.medium {
+width: 110;
+}
+
+ol {
+margin-right:40px;
+}
+li {
+margin-bottom:10px;
+}
+div.wide {
+width: 782px;
+display: block;
+}
+div.box {
+height: 160px;
+overflow: scroll;
+padding-bottom:18px;
+}
+.cntr {
+text-align: center;
+}
+span.l12 {
+width: 42 px;
+}
+span.left {
+float: left; clear: left;
+width: 90px;
+}
+/* artiest.html: Voornaam	Achternaam
+start.html: sorteer op:
+detail.html: Album:		Concert:
+	Label/jaar:		Produced by:	Credits:	Bezetting:	Tevens met:
+	Tracks:	Opnames:
+track.html: Album:	Concert:	Nummer:		Titel:	Door:	Credits:
+opname.html: Album:	Concert:	Medium:	Omschrijving:
+*/
+
+span.right {
+float: left; clear: right;
+/* width: 90%; */
+}
+/* artiest.html, start.html, detail.html, track.html, opname.html: rest */
+
+span.all {
+float: left; clear: both;
+width: 100%;
+}
+span.mid {
+float: left;
+width: 45%;
+}
+span.mid2 {
+float: left;
+width: 30%;
+}
+span.left2 {
+float: left; clear: left;
+width: 14%;
+}
+span.right2 {
+float: left; clear: right;
+width: 86%;
+}
+span.left3 {
+float: left; clear: left;
+width: 100px;
+}
+/* start.html: Selecteer studio-albums op: 	Selecteer concert-opnames op: */
+
+span.right3 {
+float: left; clear: right;
+/* width: 82%; */
+}
+/* start.html: rest */
+
+span.left4 {
+float: left; clear: left;
+width: 20px;
+}
+/* select.html: geen tekst */
+
+span.right4 {
+float: left; clear: right;
+/* width: 95%; */
+}
+/* select.html: rest */
+
+span.left5 {
+float: left; clear: left;
+width: 35%;
+}
+span.right5 {
+float: left; clear: right;
+width: 65%;
+}

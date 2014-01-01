@@ -1,0 +1,72 @@
+{% extends "muziek/base_site.html" %}
+{% block title %}Pythoneer Muziek: detail{% endblock %}
+{% block extrahead %}
+<script type="text/javascript">
+function submitforid(value) {
+    var str = document.forms["tracks"].action;
+    str = str.replace('all', value);
+    document.forms["tracks"].action = str;
+    document.forms["tracks"].submit();
+}</script>
+{% endblock %}
+{% block content %}
+<div class="container_16">
+
+    <div class="grid_16 ">{{meld}}</div>
+    <div class="clear">&nbsp;</div>
+
+    <div class="grid_16 "><b>{{kop}}</b>
+    {%if not nieuw%}
+        <form action="/muziek/{{soort}}/act/{{act_id}}/" method="post">
+            Snel naar een ander {% if album.label%}album{%else%}concert{%endif%} van deze artiest:
+            <select name="selAlbum" id="selAlbum" onchange="form.submit()">
+                <option value="0">-- selecteer titel --</option>
+                {% for x in act_list %}<option value="{{x.id}}">{{x}}</option>{% endfor %}
+            </select>
+            <input type='hidden' name='keuze' value='{{keuze}}' />
+            <input type='hidden' name='selitem' value='{{selitem}}' />
+            <input type='hidden' name='sortorder' value='{{sortorder}}' />
+        </form><hr/>
+    {%endif%}
+    </div>
+    <div class="clear">&nbsp;</div>
+
+    <!-- <div class="grid_16" id="album"> -->
+    {% if nieuw or actie == 'edit' and type == '' %}
+        {% include "muziek/wijzigdetails.html" %}
+    {% else %}
+        {% include "muziek/toondetails.html" %}
+    {% endif %}
+    <!-- </div>
+    <div class="clear">&nbsp;</div> -->
+
+    <div class="grid_16"><hr /></div>
+    <div class="clear">&nbsp;</div>
+
+{% if not nieuw %}
+
+    <!-- <div class="grid_16" id="tracks"> -->
+    {% if actie == 'edit' and type == 'track' %}
+        {% include "muziek/wijzigtracks.html" %}
+    {% else %}
+        {% include "muziek/toontracks.html" %}
+    {% endif %}
+    <!-- </div>
+    <div class="clear" />&nbsp;</div> -->
+
+    <div class="grid_16"><hr /></div>
+    <div class="clear">&nbsp;</div>
+
+    <!-- <div class="grid_16" id="opnames"> -->
+    {% if actie == 'edit' and type == 'opname' %}
+        {% include "muziek/wijzigopnames.html" %}
+    {% else %}
+        {% include "muziek/toonopnames.html" %}
+    {% endif %}
+    <!-- </div>
+    <div class="clear">&nbsp;</div> -->
+
+{% endif %}
+
+</div>
+{% endblock %}

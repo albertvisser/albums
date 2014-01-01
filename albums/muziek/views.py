@@ -170,7 +170,7 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             kop += " - selectie: titel bevat locatie '%s'" % zoektxt
             selitem = zoektxt
         elif keuze == l_keuzes[3][0]:
-            sel = sel.filter(produced_by__icontains=zoektxt)
+            sel = sel.filter(name__icontains=zoektxt)
             kop += " - selectie: titel bevat datum '%s'" % zoektxt
             selitem = zoektxt
         elif keuze == l_keuzes[4][0]:
@@ -216,19 +216,20 @@ def sel_detail(request, soort="", item=""):
     return HttpResponseRedirect("/muziek/%s/%s/%s/%s/%s/" % (soort, postdict["selAlbum"],
         postdict['keuze'], postdict['selitem'], postdict['sortorder']))
 
-def detail(request, soort="", keuze="", selitem="", sortorder="", item=""):
+def detail(request, soort="", keuze="", selitem="", sortorder="", item="", type="",
+        actie=""):
     info_dict = {}
     ## getdict = request.GET
     ## getpath = request.get_full_path()
     ## return HttpResponse(">>{} {}<<".format(str(getdict), getpath))
-    bingo = my.Album.objects.get(pk=item)
-    act_id = bingo.artist.id
-    ## if bingo.bezetting:
-        ## info_dict["bezet"] = "; ".join([str(x) for x in bingo.bezetting.artists.all()])
+    album = my.Album.objects.get(pk=item)
+    act_id = album.artist.id
+    ## if album_or_concert.bezetting:
+        ## info_dict["bezet"] = "; ".join([str(x) for x in album_or_concert.bezetting.artists.all()])
     act_list = my.Album.objects.filter(artist=act_id)
-    info_dict["track_list"] = bingo.tracks.all().order_by('volgnr')
-    info_dict["opn_list"] = bingo.opnames.all()
-    info_dict["album"] = bingo
+    info_dict["track_list"] = album.tracks.all().order_by('volgnr')
+    info_dict["opn_list"] = album.opnames.all()
+    info_dict["album"] = album
     info_dict["soort"] = soort
     info_dict["keuze"] = keuze
     info_dict["selitem"] = selitem
@@ -236,12 +237,14 @@ def detail(request, soort="", keuze="", selitem="", sortorder="", item=""):
     info_dict["o_soort"] = o_soort
     info_dict["o_oms"] = o_oms
     info_dict["act_id"] = act_id
+    info_dict["type"] = type
+    info_dict["actie"] = actie
     info_dict["actlist"] = my.Act.objects.all().order_by('last_name')
     if soort == 'album':
-        info_dict["kop"] = "Gegevens van album " + str(bingo)
+        info_dict["kop"] = "Gegevens van album " + str(album)
         info_dict["act_list"] = act_list.exclude(label="")
     elif soort == 'live':
-        info_dict["kop"] = "Gegevens van concert: " + str(bingo)
+        info_dict["kop"] = "Gegevens van concert: " + str(album)
         info_dict["act_list"] = act_list.filter(label="")
     else:
         info_dict["meld"] = 'Albumtype kon niet bepaald worden'
@@ -253,102 +256,100 @@ def artiest(request, actie=""):
         "artiesten": my.Act.objects.all().order_by('last_name'),
         })
 
-def nieuw(request, soort="", item="", type=""):
+def nieuw(request, soort="", item="", type="", artiest=""):
+    data = {
+        "kop": soort.join(("nieuw(e) "," opvoeren")),
+        "soort": soort,
+        }
     if soort in ("album", "live"):
-        if type == "track":
+        data["nieuw"] = True
+        if type in ('track', 'opname'):
+            data["kop"] = type.join(("nieuw(e) "," opvoeren"))
             album = my.Album.objects.get(id=item)
             aantal = album.tracks.count()
-            return render_to_response("muziek/track.html",{
-                "kop": type.join(("nieuw(e) "," opvoeren")),
-                "soort": soort,
-                "album": album,
-                "nieuw": True,
-                "volgnr": str(aantal + 1)
-                })
-        elif type == "opname":
-            album = my.Album.objects.get(id=item)
-            return render_to_response("muziek/opname.html",{
-                "kop": type.join(("nieuw(e) "," opvoeren")),
-                "album": album,
-                "nieuw": True,
-                "soort": soort,
-                "o_soort": o_soort,
-                })
-        return render_to_response('muziek/detail.html',{
-            "kop": soort.join(("nieuw(e) "," opvoeren")),
-            "soort": soort,
-            "nieuw": True,
-            "actlist": my.Act.objects.all().order_by('last_name'),
-            })
+            data["album"] = album
+            if type == "track":
+                data["volgnr"] = str(aantal + 1)
+                return render_to_response("muziek/track.html",data)
+            else:
+                data["o_soort"] = o_soort
+                return render_to_response("muziek/opname.html", data)
+        data["actie"] = "edit"
+        data["act_id"] = int(artiest)
+        data["actlist"] = my.Act.objects.all().order_by('last_name')
+        return render_to_response('muziek/detail.html', data)
     elif soort == "artiest":
-        return render_to_response('muziek/artiest.html',{
-            "kop": soort.join(("nieuwe "," opvoeren")),
-            "soort": soort,
-            "artiesten": "lijst",
-            "artiest": "nieuw"
-            })
+        data["artiesten"] = "lijst"
+        data["artiest"] = "nieuw"
+        return render_to_response('muziek/artiest.html', data)
 
 def wijzig(request, soort="", item="", type="", subitem="", actie=""):
     postdict = request.POST
-    return HttpResponse('>{}<'.format(postdict))
-    if type == "track":
-        album = my.Album.objects.get(id=item)
-        if subitem:
-            track = my.Song.objects.get(id=subitem)
-            if actie == "edit":
-                return render_to_response("muziek/track.html",{
-                    "kop": type + " wijzigen",
-                    "soort": soort,
-                    "album": album,
-                    "track": track,
-                    })
+    ## return HttpResponse('soort: {} item: {} type: {} subitem: {} actie: {}'. format(
+        ## soort, item, type, subitem, actie))
+    if soort == "artiest":
+        if not item:
+            data = my.Act.objects.create()
         else:
-            track = my.Song()
-        wijzig = False
-        if int(postdict["tNr"]) != track.volgnr:
-            track.volgnr = int(postdict["tNr"])
-            wijzig = True
-        if postdict["tNaam"] != track.name:
-            track.name = postdict["tNaam"]
-            wijzig = True
-        if postdict["tDoor"] != track.written_by:
-            track.written_by = postdict["tDoor"]
-            wijzig = True
-        if postdict["tCredits"] != track.credits:
-            track.credits = postdict["tCredits"]
-            wijzig = True
-        if wijzig:
-            track.save()
-            if not subitem:
-                album.tracks.add(track)
-        return HttpResponseRedirect("/muziek/%s/%s/" % (soort,item))
+            data = my.Act.objects.get(pk=item)
+        data.first_name = postdict['tNaam']
+        data.last_name = postdict['tSort']
+        data.save()
+        return HttpResponseRedirect("/muziek/artiest/lijst/")
+        ## return render_to_response('muziek/artiest.html',{
+            ## "artiesten": "lijst",
+            ## "artiest": "nieuw"
+            ## })
+    elif type == "track":
+        album = my.Album.objects.get(id=item)
+        new_track = False
+        if subitem == 'all':
+            tracks = album.tracks.all().order_by('volgnr')
+        elif subitem:
+            tracks = [my.Song.objects.get(id=subitem)]
+        else:
+            new_track = True
+            tracks = [my.Song.objects.create(id=postdict['tNr'])]
+        for track in tracks:
+            wijzig = False
+            name = str(track.id)
+            fieldname = 'tNaam' if new_track else "txtTrack" + name
+            if postdict[fieldname] != track.name:
+                track.name = postdict[fieldname]
+                wijzig = True
+            fieldname = 'tDoor' if new_track else "txtBy" + name
+            if postdict[fieldname] != track.written_by:
+                track.written_by = postdict[fieldname]
+                wijzig = True
+            fieldname = 'tCredits' if new_track else "txtCred" + name
+            if postdict[fieldname] != track.credits:
+                track.credits = postdict[fieldname]
+                wijzig = True
+            if wijzig:
+                track.save()
+                if new_track: # not subitem:
+                    album.tracks.add(track)
     elif type == "opname":
         album = my.Album.objects.get(id=item)
-        if subitem:
-            opname = my.Opname.objects.get(id=subitem)
-            if actie == "edit":
-                return render_to_response("muziek/opname.html",{
-                    "kop": type + " wijzigen",
-                    "soort": soort,
-                    "album": album,
-                    "opname": opname,
-                    "o_soort": o_soort,
-                    })
+        if subitem == 'all':
+            opnames = album.opnames.all().order_by('volgnr')
+        elif subitem:
+            opnames = [my.Opname.objects.get(id=subitem)]
         else:
-            opname = my.Opname()
-        wijzig = False
-        if postdict["selMed"] != opname.type:
-            opname.type = postdict["selMed"]
-            wijzig = True
-        if postdict["tOms"] != opname.oms:
-            opname.oms = postdict["tOms"]
-            wijzig = True
-        if wijzig:
-            opname.save()
-            if not subitem:
-                album.opnames.add(opname)
-        return HttpResponseRedirect("/muziek/%s/%s/" % (soort,item))
-    if soort in ("album", "live"):
+            opnames = [my.Opname()]
+        for opname in opnames:
+            wijzig = False
+            if postdict["selMed"] != opname.type:
+                opname.type = postdict["selMed"]
+                wijzig = True
+            if postdict["txtOms"] != opname.oms:
+                opname.oms = postdict["txtOms"]
+                wijzig = True
+            if wijzig:
+                opname.save()
+                if not subitem:
+                    album.opnames.add(opname)
+    elif soort in ("album", "live"):
         act = my.Act.objects.get(id=postdict["selArtiest"])
         if not item:
             olddict = {}
@@ -383,16 +384,8 @@ def wijzig(request, soort="", item="", type="", subitem="", actie=""):
             wijzig = True
         if wijzig:
             album.save()
-        return HttpResponseRedirect("/muziek/%s/%s/%s/%s/%s/" % (soort, album.id,
-            postdict['keuze'], postdict['selitem'], postdict['sortorder']))
-    elif soort == "artiest":
-        if keuze == "add":
-            # na toevoegen aan de database: bepaal new_id
-            return HttpResponseRedirect("/muziek/artiest/lijst/")
-        return render_to_response('muziek/artiest.html',{
-            "artiesten": "lijst",
-            "artiest": "nieuw"
-            })
+    return HttpResponseRedirect("/muziek/%s/%s/%s/%s/%s/" % (soort, album.id,
+        postdict['keuze'], postdict['selitem'], postdict['sortorder']))
 
 # kies bezetting: eigenlijk moet de gebruiker alleen uit de bezettingen bij de Act kunnen kiezen
 # terwijl bij raadplegen deze (nog) niet in een select getoond wordt

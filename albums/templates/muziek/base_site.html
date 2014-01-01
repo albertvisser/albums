@@ -1,5 +1,8 @@
 {% extends "base.html" %}{% load i18n %}
-{% block style %} <link rel="stylesheet" type="text/css" href="http://django.pythoneer.nl/styles/muziek.css" />
+{% block style %}
+<link rel="stylesheet" type="text/css" href="http://django.pythoneer.nl/styles/reset.css" />
+<link rel="stylesheet" type="text/css" href="http://django.pythoneer.nl/styles/960.css" />
+<link rel="stylesheet" type="text/css" href="http://django.pythoneer.nl/styles/muziek.css" />
 <!-- <link rel="stylesheet" type="text/css" href="http://muziek.pythoneer.nl/muziek.css" /> -->
 <!--<link rel="stylesheet" type="text/css" href="/media/css/base.css" /> -->{% endblock %}
 {% block title %}{{ title|escape }} | {% trans 'Pythoneer muziek' %}{% endblock %}

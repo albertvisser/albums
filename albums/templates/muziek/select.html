@@ -27,6 +27,15 @@
     </a><br>
     </span>
     {%endfor%}
+    <span class="left4"><br><br/>{% if keuze == 'artiest'  %}Of{%endif%}</span>
+    <span class="right4"><br/><br/>
+    {%else%}
+    <span class="all"><br><br/>
     {%endif%}
+    {% if keuze == 'artiest' %}
+    <a href="/muziek/{{soort}}/nieuw/{{selitem}}" title="">voer een nieuw
+    {% if soort == 'album' %}{{soort}}{%else%}concert{%endif%} op bij deze artiest</a>
+    {%endif%}
+    </span>
 </div>
 {% endblock %}

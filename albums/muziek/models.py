@@ -51,7 +51,7 @@ class Album(models.Model):
             if self.release_year:
                 h = ", ".join((h,str(self.release_year)))
             h = "".join((h,")"))
-        h = " - ".join((str(self.artist),h))
+        h = " - ".join((unicode(self.artist),h))
         return h # self.name
     ## class Admin:
         ## pass
