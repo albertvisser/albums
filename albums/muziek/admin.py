@@ -1,4 +1,4 @@
-from pythoneer.muziek.models import Act, Song, Opname, Album
+from albums.muziek.models import Act, Song, Opname, Album
 from django.contrib import admin
 
 class ActAdmin(admin.ModelAdmin):

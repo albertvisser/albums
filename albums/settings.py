@@ -1,4 +1,4 @@
-# Django settings for pythoneer project.
+# Django settings for albums project.
 
 import os
 HOME = os.path.abspath(os.path.dirname(__file__))

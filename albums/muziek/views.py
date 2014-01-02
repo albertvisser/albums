@@ -6,7 +6,7 @@
 ## from django.template import Context, loader
 ## from django.http import Http404
 from django.http import HttpResponse, HttpResponseRedirect
-import pythoneer.muziek.models as my
+import albums.muziek.models as my
 from django.shortcuts import render_to_response, get_object_or_404
 s_keuzes = (
     ("alles", "1. Niet zoeken, alles tonen"),

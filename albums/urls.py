@@ -5,9 +5,9 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^$',        'pythoneer.views.index'),
-    (r'^files/',   'pythoneer.views.viewdoc'),
-    (r'^muziek/',  include('pythoneer.muziek.urls')),
+    (r'^$',        'albums.views.index'),
+    (r'^files/',   'albums.views.viewdoc'),
+    (r'^muziek/',  include('albums.muziek.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

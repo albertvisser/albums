@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('pythoneer.muziek.views',
+urlpatterns = patterns('albums.muziek.views',
     (r'^$', 'index'),
     (r'^(?P<soort>(album|live))/select/$', 'select'),
     (r'^(?P<soort>(album|live))/select/(?P<keuze>\w+)/(?P<sortorder>\w+)/$',
