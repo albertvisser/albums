@@ -1,0 +1,50 @@
+    <div class="grid_16 label vet">
+     {% if soort == "album" %}Albumgegevens:{%else%}Concert gegevens{%endif%}
+     <a href="/muziek/{{soort}}/{%if nieuw%}add{%else%}{{album.id}}/edit{%endif%}/"
+        title="">wijzigen</a>
+     </div>
+    <div class="clear">&nbsp;</div>
+    <!-- <div class="grid_16">
+        {% for act in actlist %}{%if act.id == act_id%}{{ act }}:&nbsp;{%endif%}{% endfor %}
+        {{album.name}}
+    </div>
+    <div class="clear">&nbsp;</div> -->
+    {% if soort == "album" %}
+    <!-- <div class="grid_16" id="label"> -->
+        <div class="grid_2">Label/jaar:</div>
+        <div class="grid_14">{{album.label}},&nbsp;{{album.release_year}}</div>
+        <div class="clear">&nbsp;</div>
+    <!-- </div>
+    <div class="clear">&nbsp;</div> -->
+    {%endif%}
+    <!-- <div class="grid_16" id="producer"> -->
+        <div class="grid_2">Produced by:</div>
+        <div class="grid_14">{{album.produced_by}}</div>
+        <div class="clear">&nbsp;</div>
+    <!-- </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_16" id="credits"> -->
+        <div class="grid_2">Credits:</div>
+        <div class="grid_14">{{album.credits}}</div>
+        <div class="clear">&nbsp;</div>
+    <!-- </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_16" id="bezetting"> -->
+        <div class="grid_2">Bezetting:</div>
+        <div class="grid_14">{{album.bezetting}}</div>
+        <div class="clear">&nbsp;</div>
+    <!-- </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_16" id="extra"> -->
+        <div class="grid_2">Tevens met:</div>
+        <div class="grid_14">{{album.additional}}</div>
+        <div class="clear">&nbsp;</div>
+    <!-- </div>
+    <div class="clear">&nbsp;</div> -->
+    <div class="grid_16" id="submit_album">
+    <!-- <br/><br/><br/><br/><br/><br/><br/><br/><br/> -->
+        <input type='hidden' name='keuze' value='{{keuze}}' />
+        <input type='hidden' name='selitem' value='{{selitem}}' />
+        <input type='hidden' name='sortorder' value='{{sortorder}}' />
+    </div>
+    <div class="clear">&nbsp;</div>

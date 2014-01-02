@@ -1,0 +1,19 @@
+    <div class="grid_16 label vet" id="tracks_kop">Tracks:
+        <a href="/muziek/{{soort}}/{{album.id}}/track/all/edit/" title="">wijzigen</a>
+            {%if track_list%}
+            <input type='hidden' name='keuze' value='{{keuze}}' />
+            <input type='hidden' name='selitem' value='{{selitem}}' />
+            <input type='hidden' name='sortorder' value='{{sortorder}}' />
+            {%endif%}
+    </div>
+    <div class="clear">&nbsp;</div>
+    {%if track_list %}
+    {%for x in track_list%}
+    <div class="grid_16">
+    {% if x.volgnr < 10 %}&nbsp;{% endif %}
+     {{x.volgnr|rjust:"5"}}.&nbsp;{{x.name}}
+     {%if x.written_by%}({{x.written_by}}){%endif%}
+     <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{%if x.credits%}{{x.credits}}{%endif%}
+    </div><div class="clear">&nbsp;</div>
+    {%endfor%}
+    {%endif%}

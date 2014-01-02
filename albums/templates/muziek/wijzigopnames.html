@@ -1,0 +1,31 @@
+    <!-- <div class="grid_16" id="opnames_kop"> -->
+        <div class="grid_3 label vet">Opnames:</div>
+        <div class="grid_13">
+            <a href="/muziek/{{soort}}/{{album.id}}/opname/nieuw/">
+                <input type="button" value="nieuwe toevoegen"/></a>
+            <a href="/muziek/{{soort}}/{{album.id}}/" title="">
+                <input type="button" value="Wijzigen afbreken"/></a>
+        </div><div class="clear">&nbsp;</div>
+     <!--   <div class="grid_16" style="font-size: 10px">N.B. "Waarden terugzetten" geldt alleen voor de velden in het blok "Opnames" en kan alleen zolang de knop "wijzig" nog niet gebruikt is.</div>
+        <div class="clear">&nbsp;</div> -->
+    <!-- </div><div class="clear">&nbsp;</div> -->
+    {%if opn_list %}
+    {%for x in opn_list%}
+        <form class="regel" action="/muziek/{{soort}}/{{album.id}}/opname/{{x.id}}/edit/" method="post">
+        <div class="grid_16">
+       {% if forloop.counter < 10 %}&nbsp;{% endif %}
+       {{forloop.counter|rjust:"5"}}.&nbsp;
+            <!-- <input type="text" id="txtMed{{forloop.counter}}" name="txtMed" size="60" maxlength="100" value="{{x.type}}"/> -->
+            <select name="selMed" id="selMed{{forloop.counter}}">
+                <option value="0">-- type --</option>
+                {% for y in o_soort %}<option{%if x.type == y%} selected="selected"{%endif%}>{{y}}</option>{% endfor %}
+            </select>
+            <input type="text" id="txtOms{{forloop.counter}}" name="txtOms" size="60" maxlength="100" value="{{x.oms}}"/>
+            <input type='hidden' name='keuze' value='{{keuze}}' />
+            <input type='hidden' name='selitem' value='{{selitem}}' />
+            <input type='hidden' name='sortorder' value='{{sortorder}}' />
+            <input type="submit" value="wijzig"/></td>
+        </div><div class="clear">&nbsp;</div>
+        </form>
+    {%endfor%}
+    {%endif%}
