@@ -304,14 +304,28 @@ def wijzig(request, soort="", item="", type="", subitem="", actie=""):
         album = my.Album.objects.get(id=item)
         new_track = False
         if subitem == 'all':
+            ## max = int(my.Songs.all().order_by('id').reverse()[0].id)
             tracks = album.tracks.all().order_by('volgnr')
+            maxnum = int(tracks.reverse()[0].volgnr)
+            tracks = list(tracks)
+            names = postdict.getlist('txtTrack0')
+            authors = postdict.getlist('txtBy0')
+            texts = postdict.getlist('txtCred0')
+            for ix, value in enumerate(names):
+                maxnum += 1
+                newtrack = my.Song.create(volgnr=maxnum, name=value,
+                    written_by=authors[ix], credits=texts[ix])
+                newtrack.save()
+                album.tracks.add(newtrack)
         elif subitem:
             tracks = [my.Song.objects.get(id=subitem)]
         else:
             new_track = True
             tracks = [my.Song.objects.create(id=postdict['tNr'])]
+        ## return HttpResponse('{} {}'.format(tracks, new_track))
         for track in tracks:
             wijzig = False
+            ## return HttpResponse('{} {}'.format(track.id, track.name))
             name = str(track.id)
             fieldname = 'tNaam' if new_track else "txtTrack" + name
             if postdict[fieldname] != track.name:
@@ -332,7 +346,16 @@ def wijzig(request, soort="", item="", type="", subitem="", actie=""):
     elif type == "opname":
         album = my.Album.objects.get(id=item)
         if subitem == 'all':
-            opnames = album.opnames.all().order_by('volgnr')
+            opnames = album.opnames.all() ##.order_by('volgnr')
+            ## maxnum = int(opnames.reverse()[0].volgnr)
+            opnames = list(opnames)
+            types = postdict.getlist('selMed0')
+            texts = postdict.getlist('txtOms0')
+            for ix, value in enumerate(types):
+                ## maxnum += 1
+                newopn = my.Opname.objects.create(type=value, oms=texts[ix]) # volgnr=maxnum,
+                newopn.save()
+                album.opnames.add(newopn)
         elif subitem:
             opnames = [my.Opname.objects.get(id=subitem)]
         else:

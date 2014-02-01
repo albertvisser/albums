@@ -1,5 +1,6 @@
 {% extends "muziek/base_site.html" %}
 {% block title %}Albums: detail{% endblock %}
+{% block extrastyle %}<!-- <style>.newitem {display: none; visibility: hidden}</style> -->{% endblock %}
 {% block extrahead %}
 <script type="text/javascript">
 function submitforid(value) {
@@ -7,7 +8,65 @@ function submitforid(value) {
     str = str.replace('all', value);
     document.forms["tracks"].action = str;
     document.forms["tracks"].submit();
-}</script>
+};
+function reset_form() {
+    document.forms["tracks"].reset();
+};
+</script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    var has_newtrack = false;
+    var newtrack = '            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    newtrack += '          <input type="text" name="txtTrack0" size="40" maxlength="200"/>';
+    newtrack += '          <input type="text" name="txtBy0" size="40" maxlength="200"/>';
+    newtrack += '          <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    newtrack += '          <textarea name="txtCred0" cols="95" rows="2"></textarea><br/>';
+    $('#addtrack').click(function() {
+        if (has_newtrack == false)  {
+            $('#submit_1').hide();
+            $('#cancel_1').show();
+            $('#submit_2').show();
+            has_newtrack = true;
+        };
+        $('#newtrack').append(newtrack);
+    });
+    $('#cancel_1').click(function() {
+        $('#newtrack').empty();
+        has_newtrack = false;
+        $('#submit_1').show();
+        $('#cancel_1').hide();
+        $('#submit_2').hide();
+    });
+    $('#cancel_1').hide();
+    $('#submit_2').hide();
+    var has_newopname = false;
+    var newopname = '            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    newopname += '    <select name="selMed0">';
+    newopname += '        <option value="0">-- type --</option>';
+    newopname += '        {% for y in o_soort %}<option{%if x.type == y%} selected="selected"{%endif%}>{{y}}</option>{% endfor %}';
+    newopname += '    </select>';
+    newopname += '    <input type="text" name="txtOms0" size="60" maxlength="100" value="{{x.oms}}"/><br/>';
+    $('#addopname').click(function() {
+        if (has_newopname == false)  {
+            $('#submit_3').hide();
+            $('#cancel_2').show();
+            $('#submit_4').show();
+            has_newopname = true;
+        };
+        $('#newopname').append(newopname);
+    });
+    $('#cancel_2').click(function() {
+        $('#newopname').empty();
+        has_newopname = false;
+        $('#submit_3').show();
+        $('#cancel_2').hide();
+        $('#submit_4').hide();
+    });
+    $('#cancel_2').hide();
+    $('#submit_4').hide();
+});
+</script>
 {% endblock %}
 {% block content %}
 <div class="container_16">

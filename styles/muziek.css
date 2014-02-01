@@ -36,10 +36,10 @@ font-weight:bold;
 color:#c00;
 }
 label.small {
-width: 50;
+width: 50px;
 }
 label.medium {
-width: 110;
+width: 110px;
 }
 
 ol {
@@ -61,7 +61,7 @@ padding-bottom:18px;
 text-align: center;
 }
 span.l12 {
-width: 42 px;
+width: 42px;
 }
 span.left {
 float: left; clear: left;

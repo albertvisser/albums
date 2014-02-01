@@ -3,7 +3,8 @@
 <link rel="stylesheet" type="text/css" href="/styles/reset.css" />
 <link rel="stylesheet" type="text/css" href="/styles/960.css" />
 <link rel="stylesheet" type="text/css" href="/styles/muziek.css" />
-<!--<link rel="stylesheet" type="text/css" href="/media/css/base.css" /> -->{% endblock %}
+<!--<link rel="stylesheet" type="text/css" href="/media/css/base.css" /> -->
+{% block extrastyle %}{% endblock %}{% endblock %}
 {% block title %}{{ title|escape }} | {% trans 'Mijn muziek database' %}{% endblock %}
 {% block branding %}{%endblock%}
 {%block breadcrumbs%}<a href="/">{% trans 'Albums!' %}</a> &rsaquo; <a href="/muziek/" title="startpagina muziek">start</a>

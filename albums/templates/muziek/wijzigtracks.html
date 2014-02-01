@@ -1,35 +1,35 @@
-    <form class="regel" name="tracks" action="/muziek/{{soort}}/{{album.id}}/track/all/update/" method="post">
+<form class="regel" name="tracks" id="alltracks" action="/muziek/{{soort}}/{{album.id}}/track/all/update/" method="post">
     <div class="grid_16" id="tracks_kop">
-        <div class="grid_3 label vet">Tracks:</div>
-        <div class="grid_13">&nbsp;
-             <a href="/muziek/{{soort}}/{{album.id}}/track/nieuw/">
-                <input type="button" value="nieuwe toevoegen"/></a>
+        <div class="grid_16 label vet">Tracks:
+            <a href="/muziek/{{soort}}/{{album.id}}/{{keuze}}/{{selitem}}/{{sortorder}}/" title="">wijzigen afbreken</a>
+        </div><div class="clear">&nbsp;</div>
+        <div class="grid_16">&nbsp;
+            <button type="button" id="addtrack">nieuwe toevoegen</button>
             {%if track_list%}
-            <a href="/muziek/{{soort}}/{{album.id}}/" title="">
-                <input type="button" value="Wijzigen afbreken" /></a>
             <input type='hidden' name='keuze' value='{{keuze}}' />
             <input type='hidden' name='selitem' value='{{selitem}}' />
             <input type='hidden' name='sortorder' value='{{sortorder}}' />
-            <input type="submit" value="Alle tracks updaten"/>
+            <input id="submit_1" type="submit" value="Alle tracks updaten"/>
+            <!-- <input type="button" value="Cancel changes" onclick="reset_form()"/> -->
             {%endif%}
+            <button type="button" id="cancel_1">Cancel additions</button>
+            <button id="submit_2" type="submit">Alle tracks updaten</button>
         </div>
         <div class="clear">&nbsp;</div>
-     <!--   {%if track_list%}
-        <div class="grid_16" style="font-size: 10px">N.B. "Waarden terugzetten" geldt alleen voor de velden in het blok "Tracks" en kan alleen zolang de knop "wijzig" nog niet gebruikt is.</div>
-        <div class="clear">&nbsp;</div>
-        {%endif%} -->
     </div>
     {%if track_list %}
     {%for x in track_list%}
     <div class="grid_16">
     {% if x.volgnr < 10 %}&nbsp;{% endif %}
-     {{x.volgnr|rjust:"5"}}.&nbsp;
-     <input type="text" id="txtTrack{{x.volgnr}}" name="txtTrack{{x.id}}" size="40" maxlength="200" value="{{x.name}}"/>
-     <input type="text" id="txtBy{{x.volgnr}}" name="txtBy{{x.id}}" size="40" maxlength="200" value="{{x.written_by}}"/>
-     <input type="button" value="wijzig" onclick="submitforid('{{x.id}}');return true"/>
-     <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <textarea id="txtCred{{x.volgnr}}" name="txtCred{{x.id}}" cols="95" rows="2">{{x.credits}}</textarea>
+    {{x.volgnr|rjust:"5"}}.&nbsp;
+    <input type="text" id="txtTrack{{x.volgnr}}" name="txtTrack{{x.id}}" size="40" maxlength="200" value="{{x.name}}"/>
+    <input type="text" id="txtBy{{x.volgnr}}" name="txtBy{{x.id}}" size="40" maxlength="200" value="{{x.written_by}}"/>
+    <input type="button" value="wijzig" onclick="submitforid('{{x.id}}');return true"/>
+    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <textarea id="txtCred{{x.volgnr}}" name="txtCred{{x.id}}" cols="95" rows="2">{{x.credits}}</textarea>
     </div><div class="clear">&nbsp;</div>
     {%endfor%}
     {%endif%}
-    </form>
+    <div class="grid_16" id="newtrack">
+    </div><div class="clear">&nbsp;</div>
+</form>
