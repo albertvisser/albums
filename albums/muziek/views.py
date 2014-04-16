@@ -275,7 +275,7 @@ def nieuw(request, soort="", item="", type="", artiest=""):
                 data["o_soort"] = o_soort
                 return render_to_response("muziek/opname.html", data)
         data["actie"] = "edit"
-        data["act_id"] = int(artiest)
+        data["act_id"] = int(artiest) if artiest else 0
         data["actlist"] = my.Act.objects.all().order_by('last_name')
         return render_to_response('muziek/detail.html', data)
     elif soort == "artiest":
