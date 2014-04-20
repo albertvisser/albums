@@ -1,21 +1,99 @@
 {% extends "muziek/base_site.html" %}
 {% block title %}Albums: artiesten{% endblock %}
+{% block extrastyle %}<!-- <style>.newitem {display: none; visibility: hidden}</style> -->{% endblock %}
+{% block extrahead %}
+<script type="text/javascript">
+function submitforid(value) {
+    var str = document.forms["artists"].action;
+    str = str.replace('all', value);
+    document.forms["artists"].action = str;
+    document.forms["artists"].submit();
+};
+function reset_form() {
+    document.forms["artists"].reset();
+};
+</script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    var has_newartist = false;
+    var newartist = '        <div class="grid_2">';
+    newartist += '            <input type="text" name="tNaam" id="tNaam0" value="{{x.first_name}}" size="10" />';
+    newartist += '        </div>';
+    newartist += '        <div class="grid_8">';
+    newartist += '            <input type="text" name="tSort" id="tSort0" value="{{x.last_name}}" size="40"  />';
+    newartist += '        </div>';
+    newartist += '        <div class="grid_5">&nbsp;</div>';
+    newartist += '        <div class="clear">&nbsp;</div>';
+    $('#addartist').click(function() {
+        if (has_newartist == false)  {
+            $('#submit_1').hide();
+            $('#cancel_1').show();
+            $('#submit_2').show();
+            has_newartist = true;
+        };
+        $('#newartist').append(newartist);
+    });
+    $('#cancel_1').click(function() {
+        $('#newartist').empty();
+        has_newartist = false;
+        $('#submit_1').show();
+        $('#cancel_1').hide();
+        $('#submit_2').hide();
+    });
+    $('#cancel_1').hide();
+    $('#submit_2').hide();
+});
+</script>
+{% endblock %}
 {% block content %}
     <hr/>
-  <table>
-    <tr><th>Voornaam</th><th>Achternaam</th><th>
-    <a href="/muziek/artiest/nieuw/" title=""><input type="button" value="Nieuw" /></a>
-    <input type="button" value="Terugzetten" onclick="javascript:history.go(-1)" />
-    </th>
-    </tr>
+<form class="regel" name="artists" id="allartists" action="/muziek/artiest/all/update/" method="post">
+<div class="container_16">
+
+    <div class="grid_16 ">
+                <button type="button" id="addartist">Add new</button>
+                <button type="button" id="cancel_1">Cancel additions</button>
+                <button id="submit_2" type="submit">Update all</button>
+                <input id="submit_1" type="submit" value="Update all"/>
+                <input type='hidden' name='keuze' value='{{keuze}}' />
+                <input type='hidden' name='selitem' value='{{selitem}}' />
+                <input type='hidden' name='sortorder' value='{{sortorder}}' />
+                <input type="button" value="Cancel all changes" onclick="reset_form()"/>
+    </div>
+    <div class="clear">&nbsp;</div>
+
+    <div class="grid_16 ">{{meld}}</div>
+    <div class="clear">&nbsp;</div>
+
+    <div class="grid_16 label vet" id="artists_kop">
+            <div class="grid_2">Voornaam</div>
+            <div class="grid_8">Achternaam</div>
+            <div class="grid_5">&nbsp;</div>
+            <div class="clear">&nbsp;</div>
+    </div>
+    <div class="grid_16" id="newartist">
+    </div><div class="clear">&nbsp;</div>
     {%for x in artiesten%}
-    <tr><td>
-    <form class="regel" action="/muziek/artiest/{{x.id}}/edit/" method="post">
-      <input type="text" name="tNaam" id="tNaam{{x.id}}" value="{{x.first_name}}" size="10" /></td>
-      <td><input type="text" name="tSort" id="tSort{{x.id}}" value="{{x.last_name}}" size="40"  /></td>
-      <td><input type="submit" value="Aanpassen" /></form>
-      </td>
-    </tr>
-    {%endfor%}
-  </table>
+    <div class="grid_16">
+        <div class="grid_2">
+            <input type="text" name="tNaam{{x.id}}" id="tNaam{{x.id}}" value="{{x.first_name}}" size="10" />
+        </div>
+        <div class="grid_8">
+            <input type="text" name="tSort{{x.id}}" id="tSort{{x.id}}" value="{{x.last_name}}" size="40"  />
+            <input type="button" value="wijzig" onclick="submitforid('{{x.id}}');return true"/>
+        </div>
+        <div class="grid_5">&nbsp;</div>
+        <div class="clear">&nbsp;</div>
+    </div>
+    <div class="clear">&nbsp;</div>
+    {% endfor %}
+</div>
+</form>
+
+
+
+
+
+
 {% endblock %}

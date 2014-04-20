@@ -20,15 +20,15 @@ urlpatterns = patterns('albums.muziek.views',
         'wijzig'),
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/'
         'all/(?P<actie>edit)/$',  'detail'),
-    (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/'
-        '(?P<subitem>\d+)/(?P<actie>edit)/$',  'wijzig'),
+    ## (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/'
+        ## '(?P<subitem>\d+)/(?P<actie>edit)/$',  'wijzig'),
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/'
         '(?P<subitem>(\d+|all))/(?P<actie>update)/$',  'wijzig'),
     (r'^(?P<type>(track|opname))/(?P<subitem>\d+)/edit/$', 'wijzig'),
     (r'^(?P<soort>artiest)/nieuw/$', 'nieuw'),
     (r'^(?P<soort>artiest)/add/$', 'wijzig'),
     (r'^artiest/(?P<actie>lijst)/$', 'artiest'),
-    (r'^(?P<soort>artiest)/(?P<item>\d+)/edit/$', 'wijzig'),
+    (r'^(?P<soort>artiest)/(?P<item>(\d+|all))/update/$', 'wijzig'),
     ## (r'^artiest/(?P<actie>lijst)/edit/$',                                'wijzig'),
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<keuze>\w+)/(?P<selitem>\w+)/'
         '(?P<sortorder>\w+)/$', 'detail'),
