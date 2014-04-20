@@ -11,8 +11,8 @@
     {%for x in artiesten%}
     <tr><td>
     <form class="regel" action="/muziek/artiest/{{x.id}}/edit/" method="post">
-      <input type="text" name="tnaam" id="tnaam{{x.id}}" value="{{x.first_name}}" size="10" /></td>
-      <td><input type="text" name="tsort" id="tsort{{x.id}}" value="{{x.last_name}}" size="40"  /></td>
+      <input type="text" name="tNaam" id="tNaam{{x.id}}" value="{{x.first_name}}" size="10" /></td>
+      <td><input type="text" name="tSort" id="tSort{{x.id}}" value="{{x.last_name}}" size="40"  /></td>
       <td><input type="submit" value="Aanpassen" /></form>
       </td>
     </tr>
