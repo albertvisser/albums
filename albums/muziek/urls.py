@@ -28,6 +28,7 @@ urlpatterns = patterns('albums.muziek.views',
     (r'^(?P<soort>artiest)/nieuw/$', 'nieuw'),
     (r'^(?P<soort>artiest)/add/$', 'wijzig'),
     (r'^artiest/(?P<actie>lijst)/$', 'artiest'),
+    (r'^artiest/(?P<actie>lijst)/(?P<filter>\w+)/$', 'artiest'),
     (r'^(?P<soort>artiest)/(?P<item>(\d+|all))/update/$', 'wijzig'),
     ## (r'^artiest/(?P<actie>lijst)/edit/$',                                'wijzig'),
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<keuze>\w+)/(?P<selitem>\w+)/'

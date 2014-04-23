@@ -250,11 +250,12 @@ def detail(request, soort="", keuze="", selitem="", sortorder="", item="", type=
         info_dict["meld"] = 'Albumtype kon niet bepaald worden'
     return render_to_response('muziek/detail.html',info_dict)
 
-def artiest(request, actie=""):
+def artiest(request, actie="", filter=""):
     # toon een lijst met my.Act items
-    return render_to_response('muziek/artiesten.html',{
-        "artiesten": my.Act.objects.all().order_by('last_name'),
-        })
+    return render_to_response('muziek/artiesten.html', {
+        "artiesten": my.Act.objects.all().filter(
+            last_name__contains='{}'.format(filter)).order_by('last_name'),
+        "filter": filter})
 
 def nieuw(request, soort="", item="", type="", artiest=""):
     data = {
@@ -288,6 +289,7 @@ def wijzig(request, soort="", item="", type="", subitem="", actie=""):
     ## return HttpResponse('soort: {} item: {} type: {} subitem: {} actie: {}'. format(
         ## soort, item, type, subitem, actie))
     if soort == "artiest":
+        nextpage = "/muziek/artiest/lijst/"
         if not item:
             data = my.Act.objects.create()
             data.first_name = postdict['tNaam']
@@ -301,9 +303,11 @@ def wijzig(request, soort="", item="", type="", subitem="", actie=""):
         else:
             all_artists = my.Act.objects.all().order_by('id')
             maxnum = int(all_artists.reverse()[0].id)
-            for act in all_artists:
-                first_name_entered = postdict['tNaam{}'.format(act.id)]
-                last_name_entered = postdict['tSort{}'.format(act.id)]
+            all_keys = [x for x in postdict if x.startswith('tNaam') and len(x) > 5]
+            for key in all_keys:
+                act = my.Act.objects.get(pk=int(key[5:]))
+                first_name_entered = postdict[key]
+                last_name_entered = postdict['tSort{}'.format(key[5:])]
                 modified = False
                 if first_name_entered != act.first_name:
                     act.first_name = first_name_entered
@@ -320,7 +324,10 @@ def wijzig(request, soort="", item="", type="", subitem="", actie=""):
                 newact = my.Act.objects.create(id=maxnum, last_name=value,
                     first_name = f_names[ix])
                 newact.save()
-        return HttpResponseRedirect("/muziek/artiest/lijst/")
+            filter = postdict['filter']
+            if filter:
+                nextpage += filter + '/'
+        return HttpResponseRedirect(nextpage)
 
     elif type == "track":
         album = my.Album.objects.get(id=item)

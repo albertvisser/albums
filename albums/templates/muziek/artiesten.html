@@ -43,6 +43,13 @@ $(document).ready(function() {
     });
     $('#cancel_1').hide();
     $('#submit_2').hide();
+    $('#selartist').click(function() {
+        var filter = $('#filter').val();
+        var newurl = "/muziek/artiest/lijst/" + filter + '/';
+        $('#allartists').attr('action', newurl);
+//        $('#allartists').attr('method', 'get');
+        $('#allartists').submit();
+    });
 });
 </script>
 {% endblock %}
@@ -52,14 +59,17 @@ $(document).ready(function() {
 <div class="container_16">
 
     <div class="grid_16 ">
+        <div class="grid_8 ">
                 <button type="button" id="addartist">Add new</button>
                 <button type="button" id="cancel_1">Cancel additions</button>
                 <button id="submit_2" type="submit">Update all</button>
                 <input id="submit_1" type="submit" value="Update all"/>
-                <input type='hidden' name='keuze' value='{{keuze}}' />
-                <input type='hidden' name='selitem' value='{{selitem}}' />
-                <input type='hidden' name='sortorder' value='{{sortorder}}' />
                 <input type="button" value="Cancel all changes" onclick="reset_form()"/>
+        </div>
+        <div class="grid_7 ">
+                <button type="button" id="selartist">Filter op:</button>
+                <input type="text" name="filter" id="filter" value="{{filter}}"/>
+        </div>
     </div>
     <div class="clear">&nbsp;</div>
 
