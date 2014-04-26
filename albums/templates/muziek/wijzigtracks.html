@@ -4,11 +4,11 @@
             <a href="/muziek/{{soort}}/{{album.id}}/{{keuze}}/{{selitem}}/{{sortorder}}/" title="">wijzigen afbreken</a>
         </div><div class="clear">&nbsp;</div>
         <div class="grid_16">&nbsp;
-            <button type="button" id="addtrack">nieuwe toevoegen</button>
-            {%if track_list%}
             <input type='hidden' name='keuze' value='{{keuze}}' />
             <input type='hidden' name='selitem' value='{{selitem}}' />
             <input type='hidden' name='sortorder' value='{{sortorder}}' />
+            <button type="button" id="addtrack">nieuwe toevoegen</button>
+            {%if track_list%}
             <input id="submit_1" type="submit" value="Alle tracks updaten"/>
             <!-- <input type="button" value="Cancel changes" onclick="reset_form()"/> -->
             {%endif%}

@@ -1,5 +1,5 @@
     <div class="grid_16 label vet" id="opnames_kop">Opnames:
-        <a href="/muziek/{{soort}}/{{album.id}}/opname/all/edit/">wijzigen</a>
+        <a href="/muziek/{{soort}}/{{album.id}}/opname/all/edit/{{keuze}}/{{selitem}}/{{sortorder}}/">wijzigen</a>
     </div><div class="clear">&nbsp;</div>
     {%if opn_list %}
     {%for x in opn_list%}
@@ -9,9 +9,9 @@
             <!-- <input type="text" id="txtMed{{forloop.counter}}" name="txtMed" size="60" maxlength="100" value="{{x.type}}"/> -->
            {% for y in o_soort %}{%if x.type == y%}{{y}}{%endif%}{% endfor %}
             {{x.oms}}
-            <input type='hidden' name='keuze' value='{{keuze}}' />
+        <!--    <input type='hidden' name='keuze' value='{{keuze}}' />
             <input type='hidden' name='selitem' value='{{selitem}}' />
-            <input type='hidden' name='sortorder' value='{{sortorder}}' />
+            <input type='hidden' name='sortorder' value='{{sortorder}}' /> -->
         </div><div class="clear">&nbsp;</div>
     {%endfor%}
     {%endif%}

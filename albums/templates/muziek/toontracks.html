@@ -1,10 +1,10 @@
     <div class="grid_16 label vet" id="tracks_kop">Tracks:
-        <a href="/muziek/{{soort}}/{{album.id}}/track/all/edit/" title="">wijzigen</a>
-            {%if track_list%}
+        <a href="/muziek/{{soort}}/{{album.id}}/track/all/edit/{{keuze}}/{{selitem}}/{{sortorder}}/" title="">wijzigen</a>
+        <!--    {%if track_list%}
             <input type='hidden' name='keuze' value='{{keuze}}' />
             <input type='hidden' name='selitem' value='{{selitem}}' />
             <input type='hidden' name='sortorder' value='{{sortorder}}' />
-            {%endif%}
+            {%endif%} -->
     </div>
     <div class="clear">&nbsp;</div>
     {%if track_list %}

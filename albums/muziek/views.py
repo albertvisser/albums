@@ -257,10 +257,14 @@ def artiest(request, actie="", filter=""):
             last_name__contains='{}'.format(filter)).order_by('last_name'),
         "filter": filter})
 
-def nieuw(request, soort="", item="", type="", artiest=""):
+def nieuw(request, soort="", item="", type="", artiest="", keuze="",
+        selitem="", sortorder=""):
     data = {
-        "kop": soort.join(("nieuw(e) "," opvoeren")),
+        "kop": soort.join(("nieuwe "," opname opvoeren")),
         "soort": soort,
+        "keuze": keuze,
+        "selitem": selitem,
+        "sortorder": sortorder,
         }
     if soort in ("album", "live"):
         data["nieuw"] = True
@@ -276,7 +280,12 @@ def nieuw(request, soort="", item="", type="", artiest=""):
                 data["o_soort"] = o_soort
                 return render_to_response("muziek/opname.html", data)
         data["actie"] = "edit"
+        if keuze == 'artiest':
+            artiest = selitem
+        elif keuze:
+            data[keuze] = selitem
         data["act_id"] = int(artiest) if artiest else 0
+        # eigenlijk moet hier voorzien gaan worden in andere mogelijkheden
         data["actlist"] = my.Act.objects.all().order_by('last_name')
         return render_to_response('muziek/detail.html', data)
     elif soort == "artiest":
@@ -284,10 +293,17 @@ def nieuw(request, soort="", item="", type="", artiest=""):
         data["artiest"] = "nieuw"
         return render_to_response('muziek/artiest.html', data)
 
-def wijzig(request, soort="", item="", type="", subitem="", actie=""):
+def wijzig(request, soort="", item="", type="", subitem="", actie="", keuze="",
+        selitem="", sortorder=""):
     postdict = request.POST
     ## return HttpResponse('soort: {} item: {} type: {} subitem: {} actie: {}'. format(
         ## soort, item, type, subitem, actie))
+    if not keuze and 'keuze' in postdict:
+        keuze = postdict['keuze']
+    if not selitem and 'selitem' in postdict:
+        selitem = postdict['selitem']
+    if not sortorder and 'sortorder' in postdict:
+        sortorder = postdict['sortorder']
     if soort == "artiest":
         nextpage = "/muziek/artiest/lijst/"
         if not item:
@@ -335,14 +351,14 @@ def wijzig(request, soort="", item="", type="", subitem="", actie=""):
         if subitem == 'all':
             ## max = int(my.Songs.all().order_by('id').reverse()[0].id)
             tracks = album.tracks.all().order_by('volgnr')
-            maxnum = int(tracks.reverse()[0].volgnr)
             tracks = list(tracks)
+            maxnum = int(tracks.reverse()[0].volgnr) if tracks else 0
             names = postdict.getlist('txtTrack0')
             authors = postdict.getlist('txtBy0')
             texts = postdict.getlist('txtCred0')
             for ix, value in enumerate(names):
                 maxnum += 1
-                newtrack = my.Song.create(volgnr=maxnum, name=value,
+                newtrack = my.Song.objects.create(volgnr=maxnum, name=value,
                     written_by=authors[ix], credits=texts[ix])
                 newtrack.save()
                 album.tracks.add(newtrack)
@@ -440,7 +456,7 @@ def wijzig(request, soort="", item="", type="", subitem="", actie=""):
             album.save()
 
     return HttpResponseRedirect("/muziek/%s/%s/%s/%s/%s/" % (soort, album.id,
-        postdict['keuze'], postdict['selitem'], postdict['sortorder']))
+        keuze, selitem, sortorder))
 
 # kies bezetting: eigenlijk moet de gebruiker alleen uit de bezettingen bij de Act kunnen kiezen
 # terwijl bij raadplegen deze (nog) niet in een select getoond wordt

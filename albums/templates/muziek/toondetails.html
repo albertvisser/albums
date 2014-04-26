@@ -1,6 +1,6 @@
     <div class="grid_16 label vet">
      {% if soort == "album" %}Albumgegevens:{%else%}Concert gegevens{%endif%}
-     <a href="/muziek/{{soort}}/{%if nieuw%}add{%else%}{{album.id}}/edit{%endif%}/"
+     <a href="/muziek/{{soort}}/{%if nieuw%}add{%else%}{{album.id}}/edit{%endif%}/{{keuze}}/{{selitem}}/{{sortorder}}/"
         title="">wijzigen</a>
      </div>
     <div class="clear">&nbsp;</div>
@@ -43,8 +43,8 @@
     <div class="clear">&nbsp;</div> -->
     <div class="grid_16" id="submit_album">
     <!-- <br/><br/><br/><br/><br/><br/><br/><br/><br/> -->
-        <input type='hidden' name='keuze' value='{{keuze}}' />
+    <!--    <input type='hidden' name='keuze' value='{{keuze}}' />
         <input type='hidden' name='selitem' value='{{selitem}}' />
-        <input type='hidden' name='sortorder' value='{{sortorder}}' />
+        <input type='hidden' name='sortorder' value='{{sortorder}}' /> -->
     </div>
     <div class="clear">&nbsp;</div>

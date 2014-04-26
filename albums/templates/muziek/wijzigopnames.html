@@ -1,14 +1,14 @@
 <form class="regel" name="opnames" id="allopnames" action="/muziek/{{soort}}/{{album.id}}/opname/all/update/" method="post">
     <div class="grid_16" id="tracks_kop">
         <div class="grid_16 label vet" id="opnames_kop">Opnames:
-            <a href="/muziek/{{soort}}/{{album.id}}/" title="">Wijzigen afbreken</a></div>
+            <a href="/muziek/{{soort}}/{{album.id}}/{{keuze}}/{{selitem}}/{{sortorder}}/" title="">Wijzigen afbreken</a></div>
         </div><div class="clear">&nbsp;</div>
         <div class="grid_16">&nbsp;
             <button type="button" id="addopname">nieuwe toevoegen</button>
-            {%if opn_list %}
             <input type='hidden' name='keuze' value='{{keuze}}' />
             <input type='hidden' name='selitem' value='{{selitem}}' />
             <input type='hidden' name='sortorder' value='{{sortorder}}' />
+           {%if opn_list %}
             <input id="submit_3" type="submit" value="Alle opnames updaten"/>
             <!-- <input type="button" value="Cancel changes" onclick="reset_form()"/> -->
             {%endif%}
