@@ -1,5 +1,19 @@
 {% extends "muziek/base_site.html" %}
 {% block title %}Albums: start{% endblock %}
+{% block extrahead %}
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#selartist').click(function() {
+        var dest = "/muziek/artiest/lijst/"
+        var filter = $('#filter').val();
+        if (filter != "")
+            dest += filter + '/';
+        document.location=dest;
+    });
+});
+</script>
+{% endblock %}
 {% block content %}
 <div  class="wide">
 <span class="all">
@@ -93,7 +107,8 @@
     <span class="left">&nbsp;</span>
     <span class="right">
         <input type="button" value="Nieuwe artiest opvoeren" onclick="document.location='/muziek/artiest/nieuw/'"/>
-        <input type="button" value="Lijst artiesten / artiest wijzigen" onclick="document.location='/muziek/artiest/lijst/'"/>
+        <input type="button" id="selartist" value="Lijst artiesten"/>
+        - filter op: <input type="text" id="filter" />
     </span>
 </div>
 {% endblock %}
