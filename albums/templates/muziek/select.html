@@ -1,12 +1,43 @@
 {% extends "muziek/base_site.html" %}
 {% block title %}Albums: selectie{% endblock %}
+{% block extrahead %}
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+$( document ).ready( function() {
+    // save the original options and their keys
+    var all_opts = [];
+    $('#selartiest').children('option').each( function() {
+        all_opts [ $( this ).attr('value') ] =  $( this ).html()
+    });
+    // initiaize the search argument
+    var sel = "";
+    $('#selartiest').keyup( function(event) {
+        var test = event.which;       // get keycode: 48-57: 0-9; 65-90: a-z; 8 = backspace
+        // build/modify the search argument
+        if (test == 8) {
+            sel = sel.slice(0, -1)
+        } else if ((test >= 48 && test <=57 ) || (test >= 65 && test <= 90)) {
+            sel += String.fromCharCode(test)
+        }
+        // rebuild the select options with those containing the search argument
+        $(this).empty();
+        //~ $(this).append('<option value="0">-- selecteer--</option>')
+        for (i in all_opts) {
+            if (all_opts[i].toUpperCase().search(sel.toUpperCase()) != -1) {
+                $(this).append('<option value="' + i + '">' + all_opts[i] + "</option>");
+            };
+        }
+    });
+});
+</script>
+{% endblock %}
 {% block content %}
 <br/>
 <b>{{kop}}</b><br/>
 <form action="/muziek/{{soort}}/select/{{keuze}}/{{sortorder}}/" method="post">
 {% if keuze == "artiest"%}
     Snel naar dezelfde selectie voor een andere artiest:
-    <select name="selArtiest" onchange="form.submit()">
+    <select id="selartiest" name="selArtiest" onchange="form.submit()">
         <option value="0">-- selecteer--</option>
         {% for act in actlist %}
         <option value="{{ act.id }}">{{ act }}</option>
