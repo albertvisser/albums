@@ -2,94 +2,9 @@
 {% block title %}Albums: detail{% endblock %}
 {% block extrastyle %}<!-- <style>.newitem {display: none; visibility: hidden}</style> -->{% endblock %}
 {% block extrahead %}
-<script type="text/javascript">
-function submitforid(value) {
-    var str = document.forms["tracks"].action;
-    str = str.replace('all', value);
-    document.forms["tracks"].action = str;
-    document.forms["tracks"].submit();
-};
-function reset_form() {
-    document.forms["tracks"].reset();
-};
-</script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    // save the original options and their keys
-    var all_opts = [];
-    $('#selartiest').children('option').each( function() {
-        all_opts [ $( this ).attr('value') ] =  $( this ).html()
-    });
-    // initialize the search argument
-    var sel = "";
-    $('#selartiest').keyup( function(event) {
-        var test = event.which;       // get keycode: 48-57: 0-9; 65-90: a-z; 8 = backspace
-        // build/modify the search argument
-        if (test == 8) {
-            sel = sel.slice(0, -1)
-        } else if ((test >= 48 && test <=57 ) || (test >= 65 && test <= 90)) {
-            sel += String.fromCharCode(test)
-        }
-        // rebuild the select options with those containing the search argument
-        $(this).empty();
-        for (i in all_opts) {
-            if (all_opts[i].toUpperCase().search(sel.toUpperCase()) != -1) {
-                $(this).append('<option value="' + i + '">' + all_opts[i] + "</option>");
-            };
-        }
-    });
-   var has_newtrack = false;
-    var newtrack = '            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-    newtrack += '          <input type="text" name="txtTrack0" size="40" maxlength="200"/>';
-    newtrack += '          <input type="text" name="txtBy0" size="40" maxlength="200"/>';
-    newtrack += '          <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-    newtrack += '          <textarea name="txtCred0" cols="95" rows="2"></textarea><br/>';
-    $('#addtrack').click(function() {
-        if (has_newtrack == false)  {
-            $('#submit_1').hide();
-            $('#cancel_1').show();
-            $('#submit_2').show();
-            has_newtrack = true;
-        };
-        $('#newtrack').append(newtrack);
-    });
-    $('#cancel_1').click(function() {
-        $('#newtrack').empty();
-        has_newtrack = false;
-        $('#submit_1').show();
-        $('#cancel_1').hide();
-        $('#submit_2').hide();
-    });
-    $('#cancel_1').hide();
-    $('#submit_2').hide();
-    var has_newopname = false;
-    var newopname = '            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-    newopname += '    <select name="selMed0">';
-    newopname += '        <option value="0">-- type --</option>';
-    newopname += '        {% for y in o_soort %}<option{%if x.type == y%} selected="selected"{%endif%}>{{y}}</option>{% endfor %}';
-    newopname += '    </select>';
-    newopname += '    <input type="text" name="txtOms0" size="60" maxlength="100" value="{{x.oms}}"/><br/>';
-    $('#addopname').click(function() {
-        if (has_newopname == false)  {
-            $('#submit_3').hide();
-            $('#cancel_2').show();
-            $('#submit_4').show();
-            has_newopname = true;
-        };
-        $('#newopname').append(newopname);
-    });
-    $('#cancel_2').click(function() {
-        $('#newopname').empty();
-        has_newopname = false;
-        $('#submit_3').show();
-        $('#cancel_2').hide();
-        $('#submit_4').hide();
-    });
-    $('#cancel_2').hide();
-    $('#submit_4').hide();
-});
-</script>
+<script type="text/javascript" src="/static/selector.js"></script>>
+<script type="text/javascript" src="/static/detail_functions.js"></script>>
 {% endblock %}
 {% block content %}
 <div class="container_16">

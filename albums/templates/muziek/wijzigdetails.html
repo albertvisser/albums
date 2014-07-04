@@ -5,7 +5,7 @@
          </div>
         <div class="clear">&nbsp;</div>
         <div class="grid_16">
-            <select name="selArtiest" id="selartiest">
+            <select name="selArtiest" class="selartiest">
                 {% for act in actlist %}
                 {%if act.id == act_id%}
                         <option value="{{ act.id }}" selected="selected">{{ act }}</option>

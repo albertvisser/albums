@@ -2,41 +2,8 @@
 {% block title %}Albums: start{% endblock %}
 {% block extrahead %}
 <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#selartist').click(function() {
-        var dest = "/muziek/artiest/lijst/"
-        var filter = $('#filter').val();
-        if (filter != "")
-            dest += filter + '/';
-        document.location=dest;
-    });
-    // save the original options and their keys
-    var all_opts = [];
-    $('select.selartiest').children('option').each( function() {
-        all_opts [ $( this ).attr('value') ] =  $( this ).html()
-    });
-    // initiaize the search argument
-    var sel = "";
-    $('select.selartiest').keyup( function(event) {
-        var test = event.which;       // get keycode: 48-57: 0-9; 65-90: a-z; 8 = backspace
-        // build/modify the search argument
-        if (test == 8) {
-            sel = sel.slice(0, -1)
-        } else if ((test >= 48 && test <=57 ) || (test >= 65 && test <= 90)) {
-            sel += String.fromCharCode(test)
-        }
-        // rebuild the select options with those containing the search argument
-        $(this).empty();
-        //~ $(this).append('<option value="0">-- selecteer--</option>')
-        for (i in all_opts) {
-            if (all_opts[i].toUpperCase().search(sel.toUpperCase()) != -1) {
-                $(this).append('<option value="' + i + '">' + all_opts[i] + "</option>");
-            };
-        }
-    });
-});
-</script>
+<script type="text/javascript" src="/static/start_functions.js"></script>
+<script type="text/javascript" src="/static/selector.js"></script>
 {% endblock %}
 {% block content %}
 <div  class="wide">
@@ -51,7 +18,7 @@ $(document).ready(function() {
             {%for x in s_keuzes%}
             <input type="radio" name="selZoekS" value="{{x.0}}"{%if x.2%} checked="checked"{%endif%}/>{{x.1}}
             {%if x.0 == "artiest"%}
-            <select name="selArtiest" class="selartiest">
+            <select name="selArtiest" class="selartiest" id="sel1">
                 {% for act in actlist %}
                     <option value="{{ act.id }}">{{ act }}</option>
                 {% endfor %}
@@ -92,7 +59,7 @@ $(document).ready(function() {
             {%for x in l_keuzes%}
             <input type="radio" name="selZoekL" value="{{x.0}}"{%if x.2%} checked="checked"{%endif%}/>{{x.1}}
             {%if x.0 == "artiest"%}
-            <select name="selArtiest" class="selartiest">
+            <select name="selArtiest" class="selartiest" id="sel2">
                 {% for act in actlist %}
                     <option value="{{ act.id }}">{{ act }}</option>
                 {% endfor %}
