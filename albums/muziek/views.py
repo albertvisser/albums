@@ -352,7 +352,9 @@ def wijzig(request, soort="", item="", type="", subitem="", actie="", keuze="",
             ## max = int(my.Songs.all().order_by('id').reverse()[0].id)
             tracks = album.tracks.all().order_by('volgnr')
             tracks = list(tracks)
-            maxnum = int(tracks.reverse()[0].volgnr) if tracks else 0
+            tracks.reverse()
+            ## return HttpResponse('{}'.format(tracks))
+            maxnum = int(tracks[0].volgnr) if tracks else 0
             names = postdict.getlist('txtTrack0')
             authors = postdict.getlist('txtBy0')
             texts = postdict.getlist('txtCred0')
