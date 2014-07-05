@@ -18,7 +18,7 @@
             {%for x in s_keuzes%}
             <input type="radio" name="selZoekS" value="{{x.0}}"{%if x.2%} checked="checked"{%endif%}/>{{x.1}}
             {%if x.0 == "artiest"%}
-            <select name="selArtiest" class="selartiest" id="sel1">
+            <select name="selArtiest" class="selartiest" id="selartiest">
                 {% for act in actlist %}
                     <option value="{{ act.id }}">{{ act }}</option>
                 {% endfor %}
@@ -59,7 +59,7 @@
             {%for x in l_keuzes%}
             <input type="radio" name="selZoekL" value="{{x.0}}"{%if x.2%} checked="checked"{%endif%}/>{{x.1}}
             {%if x.0 == "artiest"%}
-            <select name="selArtiest" class="selartiest" id="sel2">
+            <select name="selArtiest" class="selartiest" id="selartiest2">
                 {% for act in actlist %}
                     <option value="{{ act.id }}">{{ act }}</option>
                 {% endfor %}
