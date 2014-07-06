@@ -10,12 +10,13 @@
 <form action="/muziek/{{soort}}/select/{{keuze}}/{{sortorder}}/" method="post">
 {% if keuze == "artiest"%}
     Snel naar dezelfde selectie voor een andere artiest:
-    <select class="selartiest" id="selartiest" name="selArtiest" onchange="form.submit()">
+    <select class="selartiest" id="selartiest" name="selArtiest">
         <option value="0">-- selecteer--</option>
         {% for act in actlist %}
         <option value="{{ act.id }}">{{ act }}</option>
         {% endfor %}
     </select>
+    <button type="submit">Go!</button>
 {%else%}
 {%endif%}
 </form>
