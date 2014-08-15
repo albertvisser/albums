@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready( function() {
 
     // save the original options and their keys
     var all_opts = [];

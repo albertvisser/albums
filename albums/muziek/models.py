@@ -4,7 +4,7 @@ import datetime
 class Act(models.Model):
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
-    def __unicode__(self):
+    def __str__(self):
         return " ".join((self.first_name,self.last_name)).strip()
     ## class Admin:
         ## pass
@@ -14,7 +14,7 @@ class Song(models.Model):
     name = models.CharField(max_length=50) #, core=True)
     written_by = models.CharField(max_length=50, blank=True) #, core=True)
     credits = models.TextField(blank=True)
-    def __unicode__(self):
+    def __str__(self):
         return self.name
     ## class Admin:
         ## pass
@@ -22,7 +22,7 @@ class Song(models.Model):
 class Opname(models.Model):
     type = models.CharField(max_length=10, blank=True) #, core=True)
     oms = models.CharField(max_length=20, blank=True) # , core=True)
-    def __unicode__(self):
+    def __str__(self):
         if self.type:
             h = self.type
             if self.oms:
@@ -44,14 +44,14 @@ class Album(models.Model):
     credits = models.TextField(blank=True)
     tracks = models.ManyToManyField(Song, related_name = 'album',null=True)
     opnames = models.ManyToManyField(Opname, related_name = 'album')
-    def __unicode__(self):
+    def __str__(self):
         h = self.name
         if self.label:
             h = " (".join((h,self.label))
             if self.release_year:
                 h = ", ".join((h,str(self.release_year)))
             h = "".join((h,")"))
-        h = " - ".join((unicode(self.artist),h))
+        h = " - ".join((str(self.artist),h))
         return h # self.name
     ## class Admin:
         ## pass
@@ -62,7 +62,7 @@ class Album(models.Model):
 ## class AlbumList(models.Model):
     ## album = models.ForeignKey(Album, edit_inline=models.TABULAR, num_in_admin=1)
     ## track = models.ForeignKey(Song,core=True)
-    ## def __unicode__(self):
+    ## def __str__(self):
         ## return ": ".join((str(self.album),str(self.track)))
     ## class Meta:
         ## order_with_respect_to = 'album'
