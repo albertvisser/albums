@@ -7,8 +7,8 @@
 {% block content %}
 <br/>
 <b>{{kop}}</b><br/>
-<form action="/muziek/{{soort}}/select/{{keuze}}/{{sortorder}}/" method="post">
 {% if keuze == "artiest"%}
+<form action="/muziek/{{soort}}/select/{{keuze}}/{{sortorder}}/" method="post">
     Snel naar dezelfde selectie voor een andere artiest:
     <select class="selartiest" id="selartiest" name="selArtiest">
         <option value="0">-- selecteer--</option>
@@ -17,9 +17,12 @@
         {% endfor %}
     </select>
     <button type="submit">Go!</button>
-{%else%}
-{%endif%}
 </form>
+{% if altsel %}
+<a href="/muziek/{{altsel}}/select/{{keuze}}/{{selitem}}/{{altsort}}" title="">
+of naar een soortgelijke selectie voor {{altnaam}} van deze artiest</a>
+{%endif%}
+{%endif%}
 <hr/>
 <div>
     <span class="all">{{meld}}</span>

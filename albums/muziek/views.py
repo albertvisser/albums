@@ -90,6 +90,9 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             sortorder = postdict['selSortS']
         sel = my.Album.objects.exclude(label="")
         kop = "Lijst studio albums"
+        altsel = 'live'
+        altnaam = 'concert opnamen'
+        altsorts = sortorder
         if keuze == s_keuzes[0][0]:
             kop += " - selectie: alles"
             selitem = "alles"
@@ -101,14 +104,17 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             sel = sel.filter(name__icontains=zoektxt)
             kop += " - selectie: titel bevat '%s'" % zoektxt
             selitem = zoektxt
+            altsel = ''
         elif keuze == s_keuzes[3][0]:
             sel = sel.filter(produced_by__icontains=zoektxt)
             kop += " - selectie: produced_by bevat '%s'" % zoektxt
             selitem = zoektxt
+            altsel = ''
         elif keuze == s_keuzes[4][0]:
             sel = sel.filter(credits__icontains=zoektxt)
             kop += " - selectie: credits bevat '%s'" % zoektxt
             selitem = zoektxt
+            altsel = ''
         elif keuze == s_keuzes[5][0]:
             sel = sel.filter(bezetting__icontains=zoektxt)
             kop += " - selectie: bezetting bevat '%s'" % zoektxt
@@ -122,9 +128,11 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             elif sortorder == s_sorts[1][0]:
                 sel = sel.order_by('name')
                 kop += " gesorteerd op titel"
+                altsel = ''
             elif sortorder == s_sorts[2][0]:
                 sel = sel.order_by('release_year')
                 kop += " gesorteerd op jaar"
+                altsort = l_sorts[1][0]
             elif sortorder == s_sorts[3][0]:
                 pass
             else:
@@ -136,6 +144,10 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             info_dict["sortorder"] = sortorder
             info_dict["selitem"] = selitem
             info_dict["actlist"] = my.Act.objects.all()
+            if altsel:
+                info_dict["altsel"] = altsel
+                info_dict["altnaam"] = altnaam
+                info_dict["altsort"] = altsort
             if len(sel) == 0:
                 meld = "Geen albums gevonden"
             else:
@@ -159,6 +171,9 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             sortorder = postdict['selSortL']
         sel = my.Album.objects.filter(label="")
         kop = "Lijst concert opnamen"
+        altsel = 'album'
+        altnaam = 'studio albums'
+        altsort = sortorder
         if keuze == l_keuzes[0][0]:
             kop += " - selectie: alles"
             selitem = "alles"
@@ -170,10 +185,12 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             sel = sel.filter(name__icontains=zoektxt)
             kop += " - selectie: titel bevat locatie '%s'" % zoektxt
             selitem = zoektxt
+            altsel = ''
         elif keuze == l_keuzes[3][0]:
             sel = sel.filter(name__icontains=zoektxt)
             kop += " - selectie: titel bevat datum '%s'" % zoektxt
             selitem = zoektxt
+            altsel = ''
         elif keuze == l_keuzes[4][0]:
             sel = sel.filter(bezetting__icontains=zoektxt)
             kop += " - selectie: bezetting bevat '%s'" % zoektxt
@@ -187,6 +204,7 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             elif sortorder == l_sorts[1][0]:
                 sel = sel.order_by('name')
                 kop += " gesorteerd op locatie/datum"
+                altsorts = s_sorts[2][0]
             elif sortorder == l_sorts[2][0]:
                 ## sel = sel.order_by('release_year')
                 ## kop += " gesorteerd op jaar"
@@ -201,6 +219,10 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             info_dict["sortorder"] = sortorder
             info_dict["selitem"] = selitem
             info_dict["actlist"] = my.Act.objects.all()
+            if altsel:
+                info_dict["altsel"] = altsel
+                info_dict["altnaam"] = altnaam
+                info_dict["altsort"] = altsort
             if len(sel) == 0:
                 meld = "Geen concerten gevonden"
             else:
@@ -412,7 +434,7 @@ def wijzig(request, soort="", item="", type="", subitem="", actie="", keuze="",
         txtoms = postdict.getlist("txtOms")
         for idx, opname in enumerate(opnames):
             wijzig = False
-            if seled[idx] != opname.type:
+            if selmed[idx] != opname.type:
                 opname.type = selmed[idx]
                 wijzig = True
             if txtoms[idx] != opname.oms:
