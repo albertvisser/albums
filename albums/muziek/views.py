@@ -51,9 +51,10 @@ o_soort = (
     'Vinyl: 12" single',
     'Tape',
     'MP3 directory',
+    'Banshee music player',
     )
 o_oms = (
-    'eigen box',
+    'eigen doosje',
     'map A-E',
     'map F-S',
     'map T-Z',
@@ -394,9 +395,8 @@ def wijzig(request, soort="", item="", type="", subitem="", actie="", keuze="",
     elif type == "opname":
         album = my.Album.objects.get(id=item)
         if subitem == 'all':
-            opnames = album.opnames.all() ##.order_by('volgnr')
+            opnames = list(album.opnames.all()) ##.order_by('volgnr')
             ## maxnum = int(opnames.reverse()[0].volgnr)
-            opnames = list(opnames)
             types = postdict.getlist('selMed0')
             texts = postdict.getlist('txtOms0')
             for ix, value in enumerate(types):
@@ -408,13 +408,15 @@ def wijzig(request, soort="", item="", type="", subitem="", actie="", keuze="",
             opnames = [my.Opname.objects.get(id=subitem)]
         else:
             opnames = [my.Opname()]
-        for opname in opnames:
+        selmed = postdict.getlist('selMed')
+        txtoms = postdict.getlist("txtOms")
+        for idx, opname in enumerate(opnames):
             wijzig = False
-            if postdict["selMed"] != opname.type:
-                opname.type = postdict["selMed"]
+            if seled[idx] != opname.type:
+                opname.type = selmed[idx]
                 wijzig = True
-            if postdict["txtOms"] != opname.oms:
-                opname.oms = postdict["txtOms"]
+            if txtoms[idx] != opname.oms:
+                opname.oms = txtoms[idx]
                 wijzig = True
             if wijzig:
                 opname.save()

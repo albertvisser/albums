@@ -40,9 +40,13 @@ $(document).ready(function() {
     var newopname = '            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
     newopname += '    <select name="selMed0">';
     newopname += '        <option value="0">-- type --</option>';
-    newopname += '        {% for y in o_soort %}<option{%if x.type == y%} selected="selected"{%endif%}>{{y}}</option>{% endfor %}';
+    var osoort = Array('Cassette', 'CD: Enkel', 'CD: Dubbel', 'Vinyl: 1LP', 'Vinyl: 2LP',  'Vinyl: 3LP',
+       'Vinyl: single', 'Vinyl: 12" single', 'Tape', 'MP3 directory', 'Banshee music player');
+    for (var i in osoort) {
+        newopname += '        <option>' + osoort[i]+ '</option>';
+    };
     newopname += '    </select>';
-    newopname += '    <input type="text" name="txtOms0" size="60" maxlength="100" value="{{x.oms}}"/><br/>';
+    newopname += '    <input type="text" name="txtOms0" size="60" maxlength="100" value=""/><br/>';
     // handler for adding a new recording
     $('#addopname').click(function() {
         if (has_newopname == false)  {
