@@ -92,7 +92,7 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
         kop = "Lijst studio albums"
         altsel = 'live'
         altnaam = 'concert opnamen'
-        altsorts = sortorder
+        altsort = sortorder
         if keuze == s_keuzes[0][0]:
             kop += " - selectie: alles"
             selitem = "alles"
@@ -128,7 +128,7 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             elif sortorder == s_sorts[1][0]:
                 sel = sel.order_by('name')
                 kop += " gesorteerd op titel"
-                altsel = ''
+                altsort = l_sorts[1][0]
             elif sortorder == s_sorts[2][0]:
                 sel = sel.order_by('release_year')
                 kop += " gesorteerd op jaar"
@@ -204,7 +204,7 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             elif sortorder == l_sorts[1][0]:
                 sel = sel.order_by('name')
                 kop += " gesorteerd op locatie/datum"
-                altsorts = s_sorts[2][0]
+                altsort = s_sorts[2][0]
             elif sortorder == l_sorts[2][0]:
                 ## sel = sel.order_by('release_year')
                 ## kop += " gesorteerd op jaar"
