@@ -1,3 +1,4 @@
+$(document).ready(function() {
     $('#selartist').click(function() {
         var dest = "/muziek/artiest/lijst/"
         var filter = $('#filter').val();
@@ -5,3 +6,4 @@
             dest += filter + '/';
         document.location=dest;
     });
+});
