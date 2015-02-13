@@ -5,7 +5,12 @@ class Act(models.Model):
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     def __str__(self):
-        return " ".join((self.first_name,self.last_name)).strip()
+        result = self.last_name
+        if self.first_name:
+            result += ', ' + self.first_name
+        return result
+    def get_name(self):
+        return " ".join((self.first_name, self.last_name)).strip()
     ## class Admin:
         ## pass
 
@@ -51,7 +56,7 @@ class Album(models.Model):
             if self.release_year:
                 h = ", ".join((h,str(self.release_year)))
             h = "".join((h,")"))
-        h = " - ".join((str(self.artist),h))
+        h = " - ".join((self.artist.get_name(),h))
         return h # self.name
     ## class Admin:
         ## pass

@@ -98,7 +98,8 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             selitem = "alles"
         elif keuze == s_keuzes[1][0]:
             sel = sel.filter(artist=sel_id)
-            kop += " - selectie: artiest '%s'" % my.Act.objects.get(id=sel_id)
+            kop += " - selectie: artiest '{}'".format(
+                my.Act.objects.get(id=sel_id).get_name())
             selitem = sel_id
         elif keuze == s_keuzes[2][0]:
             sel = sel.filter(name__icontains=zoektxt)
@@ -179,7 +180,8 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             selitem = "alles"
         elif keuze == l_keuzes[1][0]:
             sel = sel.filter(artist=sel_id)
-            kop += " - selectie: artiest '%s'" % my.Act.objects.get(id=sel_id)
+            kop += " - selectie: artiest '{}'".format(
+                my.Act.objects.get(id=sel_id).get_name())
             selitem = sel_id
         elif keuze == l_keuzes[2][0]:
             sel = sel.filter(name__icontains=zoektxt)
