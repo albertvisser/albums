@@ -2,8 +2,61 @@
 
 import os
 HOME = os.path.abspath(os.path.dirname(__file__))
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = ''
+
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'albums.muziek',
+    'django.contrib.admindocs',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware', # nieuw in 1.6
+    'django.middleware.security.SecurityMiddleware',          # nieuw in 1.8
+)
+
+ROOT_URLCONF = 'albums.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+                os.path.join(HERE, 'templates'),
+            ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+            ## 'loaders': [
+            ## #     'django.template.loaders.eggs.Loader',
+                ## 'django.template.loaders.filesystem.Loader',
+                ## 'django.template.loaders.app_directories.Loader',
+            ## ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'albums.wsgi.application'
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
@@ -79,45 +132,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = ')-*v8$8rida7@r@ho154z36k*d%u-06=#04r1nk70wayh5%sm)'
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.load_template_source',
-)
-
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.doc.XViewMiddleware',
-)
-
-ROOT_URLCONF = 'albums.urls'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(HOME, "templates"),
-)
-
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.admin',
-    'django.contrib.admindocs',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'albums.muziek',
 )
 
 SESSION_COOKIE_DOMAIN = 'albums.lemoncurry.nl'
