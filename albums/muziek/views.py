@@ -72,7 +72,8 @@ def index(request):
 
 def select(request, soort="", keuze="", sortorder="", selitem=""):
     info_dict = {}
-    postdict = request.POST
+    ## postdict = request.POST
+    postdict = request.GET
     meld = ''
     if soort == 'album':
         if selitem:
@@ -234,7 +235,7 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
     else:
         info_dict["meld"] = 'Albumtype kon niet bepaald worden'
     # toon een lijst met my.Album items
-    return render_to_response('muziek/select.html',info_dict)
+    return render_to_response('muziek/select.html', info_dict)
 
 def sel_detail(request, soort="", item=""):
     postdict = request.POST
