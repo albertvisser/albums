@@ -14,7 +14,7 @@
 
     <div class="grid_16 "><b>{{kop}}</b>
     {%if not nieuw%}
-        <form action="/muziek/{{soort}}/act/{{act_id}}/" method="post">
+        <form action="/muziek/{{soort}}/act/{{act_id}}/" method="get">
             Snel naar een ander {% if album.label%}album{%else%}concert{%endif%} van deze artiest:
             <select name="selAlbum" id="selAlbum" onchange="form.submit()">
                 <option value="0">-- selecteer titel --</option>

@@ -238,7 +238,7 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
     return render_to_response('muziek/select.html', info_dict)
 
 def sel_detail(request, soort="", item=""):
-    postdict = request.POST
+    postdict = request.GET
     return HttpResponseRedirect("/muziek/%s/%s/%s/%s/%s/" % (soort, postdict["selAlbum"],
         postdict['keuze'], postdict['selitem'], postdict['sortorder']))
 
