@@ -1,4 +1,5 @@
     <form action="/muziek/{{soort}}/{%if nieuw%}add{%else%}{{album.id}}/update{%endif%}/" method="post">
+        {% csrf_token %}
         <div class="grid_16 label vet">
          {% if soort == "album" %}Albumgegevens:{%else%}Concert gegevens{%endif%}&nbsp;
          <a href="/muziek/{{soort}}/{{album.id}}/{{keuze}}/{{selitem}}/{{sortorder}}/" title="">wijzigen afbreken</a>

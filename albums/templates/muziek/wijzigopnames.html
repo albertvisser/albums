@@ -1,4 +1,5 @@
 <form class="regel" name="opnames" id="allopnames" action="/muziek/{{soort}}/{{album.id}}/opname/all/update/" method="post">
+    {% csrf_token %}
     <div class="grid_16" id="tracks_kop">
         <div class="grid_16 label vet" id="opnames_kop">Opnames:
             <a href="/muziek/{{soort}}/{{album.id}}/{{keuze}}/{{selitem}}/{{sortorder}}/" title="">Wijzigen afbreken</a></div>

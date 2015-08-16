@@ -8,6 +8,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 import albums.muziek.models as my
 from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext
+
 s_keuzes = (
     ("alles", "1. Niet zoeken, alles tonen"),
     ("artiest", "2. Uitvoerende: ","dflt"),
@@ -274,7 +276,8 @@ def detail(request, soort="", keuze="", selitem="", sortorder="", item="", type=
         info_dict["act_list"] = act_list.filter(label="")
     else:
         info_dict["meld"] = 'Albumtype kon niet bepaald worden'
-    return render_to_response('muziek/detail.html',info_dict)
+    return render_to_response('muziek/detail.html',info_dict,
+        context_instance=RequestContext(request))
 
 def artiest(request, actie="", filter=""):
     # toon een lijst met my.Act items
