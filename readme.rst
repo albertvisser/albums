@@ -2,7 +2,8 @@
 Albums
 ======
 
-is the evolution of my take on "build an application to administer your record collection".
+is the evolution of my take on
+"build an application to administer your record collection".
 
 Long ago I "inherited" my brother's old taperecorder and a collection of old tapes,
 since he was kind of a sound quality buff and I guess he intended to recreate the
@@ -17,8 +18,8 @@ record them on tape, and make notes on paper. So my first "system" for this
 inventory was in my own handwriting, in different colours to make things more
 distinguishable from each other. For the tapings (on compact cassette, later on)
 I devised a way to make it possible to indicate on which tape or cassette a
-specific piece of music could be found - in contrast to the earlier "list of
-recordings on -this medium".
+specific piece of music could be found - in contrast to the earlier
+"list of recordings on this medium".
 
 When I got my hand on computer filing programs I switched over to the digital way.
 There was a nice program called RapidFile which was a cross between a spreadsheet
@@ -30,7 +31,7 @@ SQL database. I didn't quite finish it I think, but continued developing it in
 Microsoft Access.
 
 After I had discovered Python and the phenomenon of "dynamic web pages" I rebuilt
-this for use on a local web server. This was with communication over simple cgi and
+this for use on a local web server. This was with communication over simple CGI and
 data storage in the form of XML files.
 After somebody asked me "why don't you use a framework?" I rebuilt it in Django and
 the result is this application.
