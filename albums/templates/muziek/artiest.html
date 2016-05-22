@@ -1,7 +1,7 @@
 {% extends "muziek/base_site.html" %}
 {% block title %}Pythoneer Muziek: nieuwe artiest{% endblock %}
 {% block content %}
-<form action="/muziek/artiest/add/" method="post">
+<form action="/muziek/artiest/add/" method="post">{% csrf_token %}
     <div class="wide" id="voornaam">
     <span class="left"><label class="small" for="tNaam">Voornaam:</label></span>
     <span class="right"><input type="text" name="tNaam" id="tNaam" value="" size="10" /></span>

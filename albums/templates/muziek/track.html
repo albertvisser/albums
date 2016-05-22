@@ -14,6 +14,7 @@
 </div>
 {%endif%}
 <form action="/muziek/album/{{album.id}}/track/{%if nieuw%}add{%else%}{{track.id}}/update{%endif%}/" method="post">
+    {% csrf_token %}
     <div class="wide" id="volgnr">
     <span class="left"><label class="small" for="tNr">Nummer:</label></span>
     <span class="right"><input type="text" name="tNr" id="tNr" value="{%if nieuw%}{{volgnr}}{%else%}{{track.volgnr}}{%endif%}" size="5" /></span>

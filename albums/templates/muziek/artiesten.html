@@ -8,6 +8,7 @@
 {% block content %}
     <hr/>
 <form class="regel" name="artists" id="allartists" action="/muziek/artiest/all/update/" method="post">
+{% csrf_token %}
 <div class="container_16">
 
     <div class="grid_16 ">

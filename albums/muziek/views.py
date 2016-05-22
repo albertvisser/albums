@@ -284,7 +284,8 @@ def artiest(request, actie="", filter=""):
     return render_to_response('muziek/artiesten.html', {
         "artiesten": my.Act.objects.all().filter(
             last_name__contains='{}'.format(filter)).order_by('last_name'),
-        "filter": filter})
+        "filter": filter},
+        context_instance=RequestContext(request))
 
 def nieuw(request, soort="", item="", type="", artiest="", keuze="",
         selitem="", sortorder=""):
@@ -304,10 +305,12 @@ def nieuw(request, soort="", item="", type="", artiest="", keuze="",
             data["album"] = album
             if type == "track":
                 data["volgnr"] = str(aantal + 1)
-                return render_to_response("muziek/track.html",data)
+                return render_to_response("muziek/track.html",data,
+                    context_instance=RequestContext(request))
             else:
                 data["o_soort"] = o_soort
-                return render_to_response("muziek/opname.html", data)
+                return render_to_response("muziek/opname.html", data,
+                    context_instance=RequestContext(request))
         data["actie"] = "edit"
         if keuze == 'artiest':
             artiest = selitem
@@ -316,11 +319,13 @@ def nieuw(request, soort="", item="", type="", artiest="", keuze="",
         data["act_id"] = int(artiest) if artiest else 0
         # eigenlijk moet hier voorzien gaan worden in andere mogelijkheden
         data["actlist"] = my.Act.objects.all().order_by('last_name')
-        return render_to_response('muziek/detail.html', data)
+        return render_to_response('muziek/detail.html', data,
+            context_instance=RequestContext(request))
     elif soort == "artiest":
         data["artiesten"] = "lijst"
         data["artiest"] = "nieuw"
-        return render_to_response('muziek/artiest.html', data)
+        return render_to_response('muziek/artiest.html', data,
+            context_instance=RequestContext(request))
 
 def wijzig(request, soort="", item="", type="", subitem="", actie="", keuze="",
         selitem="", sortorder=""):
