@@ -72,11 +72,11 @@ albums\templates\muziek\
     wijzigopnames.html
         detailscherm include
 
-static\
+static/ (not tracked)
 .......
 
-    admin
-        symlink naar admin css
+admin
+    symlink to style stuff for the admin site (django/admin/static/admin)
 
 styles\
 .......
