@@ -8,6 +8,8 @@ SECRET_KEY = ''
 
 DEBUG = True
 
+ALLOWED_HOSTS = ['.lemoncurry.nl']
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,7 +39,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-                os.path.join(HERE, 'templates'),
+                os.path.join(HOME, 'templates'),
             ],
         'APP_DIRS': True,
         'OPTIONS': {
