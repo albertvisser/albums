@@ -8,8 +8,8 @@
 {% block title %}{{ title|escape }} | {% trans 'Mijn muziek database' %}{% endblock %}
 {% block branding %}{%endblock%}
 {%block breadcrumbs%}<a href="/">{% trans 'Albums!' %}</a> &rsaquo; <a href="/muziek/" title="startpagina muziek">start</a>
-{%if soort%} &rsaquo; <a href="/muziek/{{soort}}/select/{{keuze}}/{{selitem}}/{{sortorder}}" title="selecteren">select</a>{%endif%}
-{%if nieuw%} &rsaquo; <a href="/muziek/{{soort}}/nieuw/{{keuze}}/{{selitem}}/{{sortorder}}/" title="nieuwe opvoeren">nieuw</a>{%endif%}
+{%if soort and keuze %} &rsaquo; <a href="/muziek/{{soort}}/select/{{keuze}}/{{selitem}}/{{sortorder}}/" title="selecteren">select</a>{%endif%}
+{%if nieuw%} &rsaquo; <a href="/muziek/{{soort}}/nieuw/{% if keuze %}{{keuze}}/{{selitem}}/{{sortorder}}/{%endif%}" title="nieuwe opvoeren">nieuw</a>{%endif%}
 {%if album%} &rsaquo; <a href="/muziek/{{soort}}/{{album.id}}/{{keuze}}/{{selitem}}/{{sortorder}}/" title="selecteren">detail</a>{%endif%}
 {%if artiesten%} &rsaquo; <a href="/muziek/artiest/lijst/" title="">artiestenlijst</a>{%endif%}
 {%if artiest%} &rsaquo; <a href="/muziek/artiest/{{artiest}}/" title="">nieuw</a>{%endif%}

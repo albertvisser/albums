@@ -2,7 +2,7 @@
     {% csrf_token %}
     <div class="grid_16" id="tracks_kop">
         <div class="grid_16 label vet" id="opnames_kop">Opnames:
-            <a href="/muziek/{{soort}}/{{album.id}}/{{keuze}}/{{selitem}}/{{sortorder}}/" title="">Wijzigen afbreken</a></div>
+            <a href="/muziek/{{soort}}/{{album.id}}/{%if keuze%}{{keuze}}/{{selitem}}/{{sortorder}}/{%endif%}" title="">Wijzigen afbreken</a></div>
         </div><div class="clear">&nbsp;</div>
         <div class="grid_16">&nbsp;
             <button type="button" id="addopname">nieuwe toevoegen</button>

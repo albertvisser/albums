@@ -1,5 +1,5 @@
     <div class="grid_16 label vet" id="tracks_kop">Tracks:
-        <a href="/muziek/{{soort}}/{{album.id}}/track/all/edit/{{keuze}}/{{selitem}}/{{sortorder}}/" title="">wijzigen</a>
+        <a href="/muziek/{{soort}}/{{album.id}}/track/all/edit/{% if keuze %}{{keuze}}/{{selitem}}/{{sortorder}}/{%endif%}" title="">wijzigen</a>
         <!--    {%if track_list%}
             <input type='hidden' name='keuze' value='{{keuze}}' />
             <input type='hidden' name='selitem' value='{{selitem}}' />

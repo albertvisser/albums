@@ -1,6 +1,6 @@
     <div class="grid_16 label vet">
      {% if soort == "album" %}Albumgegevens:{%else%}Concert gegevens{%endif%}
-     <a href="/muziek/{{soort}}/{%if nieuw%}add{%else%}{{album.id}}/edit{%endif%}/{{keuze}}/{{selitem}}/{{sortorder}}/"
+     <a href="/muziek/{{soort}}/{%if nieuw%}add{%else%}{{album.id}}/edit{%endif%}/{%if keuze %}{{keuze}}/{{selitem}}/{{sortorder}}/{%endif%}"
         title="">wijzigen</a>
      </div>
     <div class="clear">&nbsp;</div>

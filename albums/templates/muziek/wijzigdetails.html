@@ -2,7 +2,7 @@
         {% csrf_token %}
         <div class="grid_16 label vet">
          {% if soort == "album" %}Albumgegevens:{%else%}Concert gegevens{%endif%}&nbsp;
-         <a href="/muziek/{{soort}}/{{album.id}}/{{keuze}}/{{selitem}}/{{sortorder}}/" title="">wijzigen afbreken</a>
+         <a href="/muziek/{% if album %}{{soort}}/{{album.id}}/{% endif %}{%if keuze%}{{keuze}}/{{selitem}}/{{sortorder}}/{%endif%}" title="">wijzigen afbreken</a>
          </div>
         <div class="clear">&nbsp;</div>
         <div class="grid_16">

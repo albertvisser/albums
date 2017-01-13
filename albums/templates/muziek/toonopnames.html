@@ -1,5 +1,5 @@
     <div class="grid_16 label vet" id="opnames_kop">Opnames:
-        <a href="/muziek/{{soort}}/{{album.id}}/opname/all/edit/{{keuze}}/{{selitem}}/{{sortorder}}/">wijzigen</a>
+        <a href="/muziek/{{soort}}/{{album.id}}/opname/all/edit/{% if keuze %}{{keuze}}/{{selitem}}/{{sortorder}}/{%endif%}">wijzigen</a>
     </div><div class="clear">&nbsp;</div>
     {%if opn_list %}
     {%for x in opn_list%}

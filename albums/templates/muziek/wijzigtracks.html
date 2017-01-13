@@ -2,7 +2,7 @@
     {% csrf_token %}
     <div class="grid_16" id="tracks_kop">
         <div class="grid_16 label vet">Tracks:
-            <a href="/muziek/{{soort}}/{{album.id}}/{{keuze}}/{{selitem}}/{{sortorder}}/" title="">wijzigen afbreken</a>
+            <a href="/muziek/{{soort}}/{{album.id}}/{%if keuze%}{{keuze}}/{{selitem}}/{{sortorder}}/{%endif%}" title="">wijzigen afbreken</a>
         </div><div class="clear">&nbsp;</div>
         <div class="grid_16">&nbsp;
             <input type='hidden' name='keuze' value='{{keuze}}' />

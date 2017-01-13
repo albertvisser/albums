@@ -492,8 +492,11 @@ def wijzig(request, soort="", item="", type="", subitem="", actie="", keuze="",
         if wijzig:
             album.save()
 
-    return HttpResponseRedirect("/muziek/%s/%s/%s/%s/%s/" % (soort, album.id,
-        keuze, selitem, sortorder))
+    if keuze:
+        return HttpResponseRedirect("/muziek/%s/%s/%s/%s/%s/" % (soort, album.id,
+            keuze, selitem, sortorder))
+    else:
+        return HttpResponseRedirect("/muziek/%s/%s/" % (soort, album.id))
 
 # kies bezetting: eigenlijk moet de gebruiker alleen uit de bezettingen bij de Act kunnen kiezen
 # terwijl bij raadplegen deze (nog) niet in een select getoond wordt
