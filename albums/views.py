@@ -1,13 +1,15 @@
-## from django.template import Context, loader
-## from django.http import HttpResponse
-## from django.http import Http404
-from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
+"""Page definitions on project level
+"""
+from django.shortcuts import render_to_response
 from albums.settings import MEDIA_ROOT
 
+
 def index(request):
-    return render_to_response('index.html',{})
+    "show start page"
+    return render_to_response('index.html', {})
+
 
 def viewdoc(request):
+    "view an uploaded document"
     parts = request.path.split('files/')
-    return render_to_response(MEDIA_ROOT + parts[1],{})
+    return render_to_response(MEDIA_ROOT + parts[1], {})

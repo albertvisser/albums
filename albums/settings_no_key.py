@@ -29,8 +29,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware', # nieuw in 1.6
-    'django.middleware.security.SecurityMiddleware',          # nieuw in 1.8
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',  # nieuw in 1.6
+    'django.middleware.security.SecurityMiddleware',           # nieuw in 1.8
 )
 
 ROOT_URLCONF = 'albums.urls'
@@ -39,8 +39,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-                os.path.join(HOME, 'templates'),
-            ],
+            os.path.join(HOME, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -51,8 +51,8 @@ TEMPLATES = [
             ],
             ## 'loaders': [
             ## #     'django.template.loaders.eggs.Loader',
-                ## 'django.template.loaders.filesystem.Loader',
-                ## 'django.template.loaders.app_directories.Loader',
+            ##     'django.template.loaders.filesystem.Loader',
+            ##     'django.template.loaders.app_directories.Loader',
             ## ],
         },
     },
@@ -68,8 +68,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'ado_mssql'.
-        'NAME': os.path.join(HOME, 'albums.db'),             # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(HOME, 'albums.db'),
         'USER': '',             # Not used with sqlite3.
         'PASSWORD': '',         # Not used with sqlite3.
         'HOST': '',             # Set to empty string for localhost. Not used with sqlite3.
@@ -104,7 +104,7 @@ USE_TZ = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-#MEDIA_ROOT = "C:/Python25/Lib/site-packages/django/contrib/admin/media/"
+# MEDIA_ROOT = "C:/Python25/Lib/site-packages/django/contrib/admin/media/"
 MEDIA_ROOT = os.path.join(HOME, "files/")
 
 # URL that handles the media served from MEDIA_ROOT.

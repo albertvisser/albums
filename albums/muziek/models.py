@@ -1,45 +1,48 @@
+"""Data entities
+"""
 from django.db import models
-import datetime
+
 
 class Act(models.Model):
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
+
     def __str__(self):
         result = self.last_name
         if self.first_name:
             result += ', ' + self.first_name
         return result
+
     def get_name(self):
         return " ".join((self.first_name, self.last_name)).strip()
-    ## class Admin:
-        ## pass
+
 
 class Song(models.Model):
     volgnr = models.PositiveSmallIntegerField()
-    name = models.CharField(max_length=50) #, core=True)
-    written_by = models.CharField(max_length=50, blank=True) #, core=True)
+    name = models.CharField(max_length=50)
+    written_by = models.CharField(max_length=50, blank=True)
     credits = models.TextField(blank=True)
+
     def __str__(self):
         return self.name
-    ## class Admin:
-        ## pass
+
 
 class Opname(models.Model):
-    type = models.CharField(max_length=10, blank=True) #, core=True)
-    oms = models.CharField(max_length=20, blank=True) # , core=True)
+    type = models.CharField(max_length=10, blank=True)
+    oms = models.CharField(max_length=20, blank=True)
+
     def __str__(self):
         if self.type:
             h = self.type
             if self.oms:
-                h = ": ".join((self.type,self.oms))
+                h = ": ".join((self.type, self.oms))
         else:
             h = self.oms
         return h
-    ## class Admin:
-        ## pass
+
 
 class Album(models.Model):
-    artist = models.ForeignKey(Act, related_name = 'album')
+    artist = models.ForeignKey(Act, related_name='album')
     name = models.CharField(max_length=50)
     label = models.CharField(max_length=50, blank=True)
     release_year = models.PositiveSmallIntegerField(null=True)
@@ -47,22 +50,18 @@ class Album(models.Model):
     bezetting = models.TextField(blank=True)
     additional = models.TextField(blank=True)
     credits = models.TextField(blank=True)
-    tracks = models.ManyToManyField(Song, related_name = 'album',null=True)
-    opnames = models.ManyToManyField(Opname, related_name = 'album')
+    tracks = models.ManyToManyField(Song, related_name='album', null=True)
+    opnames = models.ManyToManyField(Opname, related_name='album')
+
     def __str__(self):
         h = self.name
         if self.label:
-            h = " (".join((h,self.label))
+            h = " (".join((h, self.label))
             if self.release_year:
-                h = ", ".join((h,str(self.release_year)))
-            h = "".join((h,")"))
-        h = " - ".join((self.artist.get_name(),h))
-        return h # self.name
-    ## class Admin:
-        ## pass
-        ## fields = (
-            ## (None,{'fields' : ('artist', 'name')}),
-        ## )
+                h = ", ".join((h, str(self.release_year)))
+            h = "".join((h, ")"))
+        h = " - ".join((self.artist.get_name(), h))
+        return h
 
 ## class AlbumList(models.Model):
     ## album = models.ForeignKey(Album, edit_inline=models.TABULAR, num_in_admin=1)

@@ -1,6 +1,9 @@
+"""url configuration
+"""
 from django.conf.urls import *
 
-urlpatterns = patterns('albums.muziek.views',
+urlpatterns = patterns(
+    'albums.muziek.views',
     (r'^$', 'index'),
     (r'^(?P<soort>(album|live))/select/$', 'select'),
     (r'^(?P<soort>(album|live))/select/(?P<keuze>\w+)/(?P<sortorder>\w+)/$',
@@ -28,15 +31,15 @@ urlpatterns = patterns('albums.muziek.views',
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/add/$',
         'wijzig'),
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/all/'
-        '(?P<actie>edit)/$',  'detail'),
+        '(?P<actie>edit)/$', 'detail'),
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/all/'
         '(?P<actie>edit)/(?P<keuze>\w+)/(?P<selitem>\w+)/(?P<sortorder>\w+)/$',
         'detail'),
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/'
-        '(?P<subitem>(\d+|all))/(?P<actie>update)/$',  'wijzig'),
+        '(?P<subitem>(\d+|all))/(?P<actie>update)/$', 'wijzig'),
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/'
         '(?P<subitem>(\d+|all))/(?P<actie>update)/(?P<keuze>\w+)/(?P<selitem>\w+)/'
-        '(?P<sortorder>\w+)/$',  'wijzig'),
+        '(?P<sortorder>\w+)/$', 'wijzig'),
     (r'^(?P<type>(track|opname))/(?P<subitem>\d+)/edit/$', 'wijzig'),
 
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<keuze>\w+)/(?P<selitem>\w+)/'
