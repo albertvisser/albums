@@ -22,8 +22,8 @@ urlpatterns = patterns(
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<actie>edit)/$', 'detail'),
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<actie>edit)/(?P<keuze>\w+)/'
         '(?P<selitem>\w+)/(?P<sortorder>\w+)/$', 'detail'),
-    (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<actie>update)/$', 'wijzig'),
-    (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<actie>update)/(?P<keuze>\w+)/'
+    (r'^(?P<soort>(album|live))/(?P<item>\d+)/update/$', 'wijzig'),
+    (r'^(?P<soort>(album|live))/(?P<item>\d+)/update/(?P<keuze>\w+)/'
         '(?P<selitem>\w+)/(?P<sortorder>\w+)/$', 'wijzig'),
 
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/nieuw/$',
@@ -36,11 +36,11 @@ urlpatterns = patterns(
         '(?P<actie>edit)/(?P<keuze>\w+)/(?P<selitem>\w+)/(?P<sortorder>\w+)/$',
         'detail'),
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/'
-        '(?P<subitem>(\d+|all))/(?P<actie>update)/$', 'wijzig'),
+        '(?P<subitem>(\d+|all))/update/$', 'wijzig'),
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/'
-        '(?P<subitem>(\d+|all))/(?P<actie>update)/(?P<keuze>\w+)/(?P<selitem>\w+)/'
+        '(?P<subitem>(\d+|all))/update/(?P<keuze>\w+)/(?P<selitem>\w+)/'
         '(?P<sortorder>\w+)/$', 'wijzig'),
-    (r'^(?P<type>(track|opname))/(?P<subitem>\d+)/edit/$', 'wijzig'),
+    # (r'^(?P<type>(track|opname))/(?P<subitem>\d+)/edit/$', 'wijzig'),
 
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<keuze>\w+)/(?P<selitem>\w+)/'
         '(?P<sortorder>\w+)/$', 'detail'),
@@ -50,7 +50,7 @@ urlpatterns = patterns(
     (r'^artiest/(?P<actie>lijst)/$', 'artiest'),
     (r'^artiest/(?P<actie>lijst)/(?P<filter>\w+)/$', 'artiest'),
     (r'^(?P<soort>artiest)/(?P<item>(\d+|all))/update/$', 'wijzig'),
-    ## (r'^artiest/(?P<actie>lijst)/edit/$',                                'wijzig'),
+    # (r'^artiest/(?P<actie>lijst)/edit/$',                                'wijzig'),
     (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<keuze>\w+)/(?P<selitem>\w+)/'
         '(?P<sortorder>\w+)/$', 'detail'),
 
