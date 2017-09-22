@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 import albums.muziek.models as my
 
+# shouldn't these also be in the database?
 s_keuzes = (("alles", "1. Niet zoeken, alles tonen"),
             ("artiest", "2. Uitvoerende: ", "dflt"),
             ("titel", "3. Titel"),
@@ -33,7 +34,8 @@ o_soort = ('Cassette',
            'Vinyl: 12" single',
            'Tape',
            'MP3 directory',
-           'Banshee music player')
+           'Banshee music player',
+           'Clementine music player')
 o_oms = ('eigen doosje',
          'map A-E',
          'map F-S',
@@ -128,7 +130,7 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             info_dict["soort"] = soort
             info_dict["sortorder"] = sortorder
             info_dict["selitem"] = selitem
-            info_dict["actlist"] = my.Act.objects.all()
+            info_dict["actlist"] = my.Act.objects.all().order_by('last_name')
             if altsel:
                 info_dict["altsel"] = altsel
                 info_dict["altnaam"] = altnaam
@@ -200,7 +202,7 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
             info_dict["soort"] = soort
             info_dict["sortorder"] = sortorder
             info_dict["selitem"] = selitem
-            info_dict["actlist"] = my.Act.objects.all()
+            info_dict["actlist"] = my.Act.objects.all().order_by('last_name')
             if altsel:
                 info_dict["altsel"] = altsel
                 info_dict["altnaam"] = altnaam

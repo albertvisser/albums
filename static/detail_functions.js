@@ -41,7 +41,8 @@ $(document).ready(function() {
     newopname += '    <select name="selMed0">';
     newopname += '        <option value="0">-- type --</option>';
     var osoort = Array('Cassette', 'CD: Enkel', 'CD: Dubbel', 'Vinyl: 1LP', 'Vinyl: 2LP',  'Vinyl: 3LP',
-       'Vinyl: single', 'Vinyl: 12" single', 'Tape', 'MP3 directory', 'Banshee music player');
+       'Vinyl: single', 'Vinyl: 12" single', 'Tape', 'MP3 directory', 'Banshee music player',
+        'Clementine music player');
     for (var i in osoort) {
         newopname += '        <option>' + osoort[i]+ '</option>';
     };

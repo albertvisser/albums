@@ -54,14 +54,23 @@ class Album(models.Model):
     opnames = models.ManyToManyField(Opname, related_name='album')
 
     def __str__(self):
-        h = self.name
+        ## h = self.name
+        album = self.name
+        hlp = ''
         if self.label:
-            h = " (".join((h, self.label))
-            if self.release_year:
-                h = ", ".join((h, str(self.release_year)))
-            h = "".join((h, ")"))
-        h = " - ".join((self.artist.get_name(), h))
-        return h
+            ## h = " (".join((h, self.label))
+            ## if self.release_year:
+                ## h = ", ".join((h, str(self.release_year)))
+            ## h = "".join((h, ")"))
+            hlp = self.label.replace('(unknown)', '')
+        if self.release_year:
+            year = str(self.release_year)
+            hlp = ", ".join((hlp, year)) if hlp else year
+        if hlp:
+            hlp = hlp.join(('(', ')'))
+        ## h = " - ".join((self.artist.get_name(), h))
+        ## return h
+        return "{} - {} {}".format(self.artist.get_name(), album, hlp)
 
 ## class AlbumList(models.Model):
     ## album = models.ForeignKey(Album, edit_inline=models.TABULAR, num_in_admin=1)
