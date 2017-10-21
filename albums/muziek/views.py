@@ -452,10 +452,10 @@ def wijzig(request, soort="", item="", type="", subitem="", keuze="", selitem=""
             album.name = postdict["txtTitel"]
             wijzig = True
         if soort == "album":
-            if postdict["txtLabel"] != album.label:
+            if postdict["txtLabel"] and postdict["txtLabel"] != album.label:
                 album.label = postdict["txtLabel"]
                 wijzig = True
-            if postdict["txtJaar"] != album.release_year:
+            if postdict["txtJaar"] and postdict["txtJaar"] != album.release_year:
                 album.release_year = postdict["txtJaar"]
                 wijzig = True
         if postdict["txtProduced"] != album.produced_by:

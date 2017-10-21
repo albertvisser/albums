@@ -53,9 +53,7 @@ class Album(models.Model):
     tracks = models.ManyToManyField(Song, related_name='album', null=True)
     opnames = models.ManyToManyField(Opname, related_name='album')
 
-    def __str__(self):
-        ## h = self.name
-        album = self.name
+    def labelstr(self):
         hlp = ''
         if self.label:
             ## h = " (".join((h, self.label))
@@ -66,10 +64,16 @@ class Album(models.Model):
         if self.release_year:
             year = str(self.release_year)
             hlp = ", ".join((hlp, year)) if hlp else year
-        if hlp:
-            hlp = hlp.join(('(', ')'))
+        return hlp
+
+    def __str__(self):
+        ## h = self.name
+        album = self.name
         ## h = " - ".join((self.artist.get_name(), h))
         ## return h
+        hlp = self.labelstr()
+        if hlp:
+            hlp = hlp.join(('(', ')'))
         return "{} - {} {}".format(self.artist.get_name(), album, hlp)
 
 ## class AlbumList(models.Model):

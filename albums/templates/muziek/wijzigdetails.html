@@ -22,8 +22,8 @@
     <div class="grid_16" id="label">
         <span class="left"><label class="small" for="txtLabel">Label/jaar:</label></span>
         <span class="right">
-            <input type="text" name="txtLabel" id="txtLabel" size="20" maxlength="80" value="{{album.label}}" />
-            <input type="text" name="txtJaar" id="txtJaar" size="6" maxlength="6" value="{{album.release_year}}" />
+            <input type="text" name="txtLabel" id="txtLabel" size="20" maxlength="80" value="{{album.label | cut:'(unknown)'}}" />
+            <input type="text" name="txtJaar" id="txtJaar" size="6" maxlength="6" value="{{album.release_year | default:''}}" />
         </span>
     </div>
     <div class="clear">&nbsp;</div>
