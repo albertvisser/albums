@@ -1,7 +1,7 @@
 # Django settings for albums project.
 
-import os
-HOME = os.path.abspath(os.path.dirname(__file__))
+import pathlib
+HOME = pathlib.Path(__file__).parent.resolve()
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ''
@@ -39,7 +39,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(HOME, 'templates'),
+            str(HOME / 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -69,7 +69,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(HOME, 'albums.db'),
+        'NAME': str(HOME / 'albums.db'),
         'USER': '',             # Not used with sqlite3.
         'PASSWORD': '',         # Not used with sqlite3.
         'HOST': '',             # Set to empty string for localhost. Not used with sqlite3.
@@ -105,7 +105,7 @@ USE_TZ = True
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
 # MEDIA_ROOT = "C:/Python25/Lib/site-packages/django/contrib/admin/media/"
-MEDIA_ROOT = os.path.join(HOME, "files/")
+MEDIA_ROOT = str(HOME / "files/")
 
 # URL that handles the media served from MEDIA_ROOT.
 # Example: "http://media.lawrence.com"
