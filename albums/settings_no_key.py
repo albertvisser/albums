@@ -1,5 +1,5 @@
-# Django settings for albums project.
-
+"""Django settings for albums project.
+"""
 import pathlib
 HOME = pathlib.Path(__file__).parent.resolve()
 
@@ -133,7 +133,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 SESSION_COOKIE_DOMAIN = 'albums.lemoncurry.nl'

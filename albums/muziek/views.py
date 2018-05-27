@@ -265,8 +265,8 @@ def artiest(request, actie="", filter=""):
     """
     return render_to_response('muziek/artiesten.html',
                               {"artiesten": my.Act.objects.all().filter(
-                                last_name__contains='{}'.format(
-                                filter)).order_by('last_name'),
+                                  last_name__contains='{}'.format(
+                                      filter)).order_by('last_name'),
                                "filter": filter},
                               context_instance=RequestContext(request))
 

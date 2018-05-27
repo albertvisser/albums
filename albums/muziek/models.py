@@ -4,6 +4,8 @@ from django.db import models
 
 
 class Act(models.Model):
+    """Gegevens uitvoerende artiest(en)
+    """
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
 
@@ -14,10 +16,14 @@ class Act(models.Model):
         return result
 
     def get_name(self):
+        """geef naam terug zoals de gebruiker hem wil zien
+        """
         return " ".join((self.first_name, self.last_name)).strip()
 
 
 class Song(models.Model):
+    """Gegegens van een afzonderlijke song
+    """
     volgnr = models.PositiveSmallIntegerField()
     name = models.CharField(max_length=50)
     written_by = models.CharField(max_length=50, blank=True)
@@ -28,20 +34,24 @@ class Song(models.Model):
 
 
 class Opname(models.Model):
+    """Gegegens over een bepaalde vastlegging van een songs-verzameling
+    """
     type = models.CharField(max_length=10, blank=True)
     oms = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
         if self.type:
-            h = self.type
+            result = self.type
             if self.oms:
-                h = ": ".join((self.type, self.oms))
+                result = ": ".join((self.type, self.oms))
         else:
-            h = self.oms
-        return h
+            result = self.oms
+        return result
 
 
 class Album(models.Model):
+    """Gegevens van een songs-verzameling (album of concert)
+    """
     artist = models.ForeignKey(Act, related_name='album')
     name = models.CharField(max_length=50)
     label = models.CharField(max_length=50, blank=True)
@@ -53,28 +63,23 @@ class Album(models.Model):
     tracks = models.ManyToManyField(Song, related_name='album', null=True)
     opnames = models.ManyToManyField(Opname, related_name='album')
 
+    def __str__(self):
+        album = self.name
+        hlp = self.labelstr()
+        if hlp:
+            hlp = hlp.join(('(', ')'))
+        return "{} - {} {}".format(self.artist.get_name(), album, hlp)
+
     def labelstr(self):
+        """Geef label plus jaar terug (gescheiden door een komma)
+        """
         hlp = ''
         if self.label:
-            ## h = " (".join((h, self.label))
-            ## if self.release_year:
-                ## h = ", ".join((h, str(self.release_year)))
-            ## h = "".join((h, ")"))
             hlp = self.label.replace('(unknown)', '')
         if self.release_year:
             year = str(self.release_year)
             hlp = ", ".join((hlp, year)) if hlp else year
         return hlp
-
-    def __str__(self):
-        ## h = self.name
-        album = self.name
-        ## h = " - ".join((self.artist.get_name(), h))
-        ## return h
-        hlp = self.labelstr()
-        if hlp:
-            hlp = hlp.join(('(', ')'))
-        return "{} - {} {}".format(self.artist.get_name(), album, hlp)
 
 ## class AlbumList(models.Model):
     ## album = models.ForeignKey(Album, edit_inline=models.TABULAR, num_in_admin=1)
