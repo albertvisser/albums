@@ -6,9 +6,9 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-    (r'^$', 'albums.views.index'),
-    (r'^files/', 'albums.views.viewdoc'),
-    (r'^muziek/', include('albums.muziek.urls')),
+    url(r'^$', 'albums.views.index'),
+    url(r'^files/', 'albums.views.viewdoc'),
+    url(r'^muziek/', include('albums.muziek.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
