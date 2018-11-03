@@ -1,15 +1,15 @@
 """Page definitions on project level
 """
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from albums.settings import MEDIA_ROOT
 
 
 def index(request):
     "show start page"
-    return render_to_response('index.html', {})
+    return render(request, 'index.html', {})
 
 
 def viewdoc(request):
     "view an uploaded document"
     parts = request.path.split('files/')
-    return render_to_response(MEDIA_ROOT + parts[1], {})
+    return render(request, MEDIA_ROOT + parts[1], {})

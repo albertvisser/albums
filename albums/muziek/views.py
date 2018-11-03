@@ -1,8 +1,7 @@
 """Code to build pages to show
 """
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 import albums.muziek.models as my
 
 # shouldn't these also be in the database?
@@ -46,7 +45,7 @@ o_oms = ('eigen doosje',
 def index(request):
     """Prepare to show start page
     """
-    return render_to_response('muziek/start.html', {
+    return render(request, 'muziek/start.html', {
         "actlist": my.Act.objects.all().order_by('last_name'),
         "s_keuzes": s_keuzes,
         "s_sorts": s_sorts,
@@ -215,7 +214,7 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
         info_dict["meld"] = meld
     else:
         info_dict["meld"] = 'Albumtype kon niet bepaald worden'
-    return render_to_response('muziek/select.html', info_dict)
+    return render(request, 'muziek/select.html', info_dict)
 
 
 def sel_detail(request, soort="", item=""):
@@ -256,19 +255,16 @@ def detail(request, soort="", keuze="", selitem="", sortorder="", item="", type=
         info_dict["act_list"] = act_list.filter(label="")
     else:
         info_dict["meld"] = 'Albumtype kon niet bepaald worden'
-    return render_to_response('muziek/detail.html', info_dict,
-                              context_instance=RequestContext(request))
+    return render(request, 'muziek/detail.html', info_dict)
 
 
 def artiest(request, actie="", filter=""):
     """toon een lijst met my.Act items
     """
-    return render_to_response('muziek/artiesten.html',
-                              {"artiesten": my.Act.objects.all().filter(
-                                  last_name__contains='{}'.format(
-                                      filter)).order_by('last_name'),
-                               "filter": filter},
-                              context_instance=RequestContext(request))
+    return render(request, 'muziek/artiesten.html',
+                  {"artiesten": my.Act.objects.all().filter(
+                      last_name__contains='{}'.format(filter)).order_by('last_name'),
+                   "filter": filter})
 
 
 def nieuw(request, soort="", item="", type="", artiest="", keuze="",
@@ -289,12 +285,10 @@ def nieuw(request, soort="", item="", type="", artiest="", keuze="",
             data["album"] = album
             if type == "track":
                 data["volgnr"] = str(aantal + 1)
-                return render_to_response("muziek/track.html", data,
-                                          context_instance=RequestContext(request))
+                return render(request, "muziek/track.html", data)
             else:
                 data["o_soort"] = o_soort
-                return render_to_response("muziek/opname.html", data,
-                                          context_instance=RequestContext(request))
+                return render(request, "muziek/opname.html", data)
         data["actie"] = "edit"
         if keuze == 'artiest':
             artiest = selitem
@@ -303,13 +297,11 @@ def nieuw(request, soort="", item="", type="", artiest="", keuze="",
         data["act_id"] = int(artiest) if artiest else 0
         # eigenlijk moet hier voorzien gaan worden in andere mogelijkheden
         data["actlist"] = my.Act.objects.all().order_by('last_name')
-        return render_to_response('muziek/detail.html', data,
-                                  context_instance=RequestContext(request))
+        return render(request, 'muziek/detail.html', data)
     elif soort == "artiest":
         data["artiesten"] = "lijst"
         data["artiest"] = "nieuw"
-        return render_to_response('muziek/artiest.html', data,
-                                  context_instance=RequestContext(request))
+        return render(request, 'muziek/artiest.html', data)
 
 
 def wijzig(request, soort="", item="", type="", subitem="", keuze="", selitem="",

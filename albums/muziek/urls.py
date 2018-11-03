@@ -1,60 +1,60 @@
 """url configuration
 """
-from django.conf.urls import *
+from django.conf.urls import include, url
+from . import views
 
-urlpatterns = patterns(
-    'albums.muziek.views',
-    url(r'^$', 'index'),
+urlpatterns = [
+    url(r'^$', views.index),
 
-    url(r'^(?P<soort>(album|live))/select/$', 'select'),
+    url(r'^(?P<soort>(album|live))/select/$', views.select),
     url(r'^(?P<soort>(album|live))/select/(?P<keuze>\w+)/(?P<sortorder>\w+)/$',
-     'select'),
+        views.select),
     url(r'^(?P<soort>(album|live))/select/(?P<keuze>\w+)/(?P<selitem>\w+)/'
-     r'(?P<sortorder>\w+)/$', 'select'),
-    url(r'^(?P<soort>(album|live))/act/(?P<item>\d+)/$', 'sel_detail'),
+        r'(?P<sortorder>\w+)/$', views.select),
+    url(r'^(?P<soort>(album|live))/act/(?P<item>\d+)/$', views.sel_detail),
 
-    url(r'^(?P<soort>(album|live))/nieuw/$', 'nieuw'),
-    url(r'^(?P<soort>(album|live))/nieuw/(?P<artiest>\d+)/$', 'nieuw'),
+    url(r'^(?P<soort>(album|live))/nieuw/$', views.nieuw),
+    url(r'^(?P<soort>(album|live))/nieuw/(?P<artiest>\d+)/$', views.nieuw),
     url(r'^(?P<soort>(album|live))/nieuw/(?P<keuze>\w+)/(?P<selitem>\w+)/'
-     r'(?P<sortorder>\w+)/$', 'nieuw'),
-    url(r'^(?P<soort>(album|live))/add/$', 'wijzig'),
+        r'(?P<sortorder>\w+)/$', views.nieuw),
+    url(r'^(?P<soort>(album|live))/add/$', views.wijzig),
 
-    url(r'^(?P<soort>(album|live))/(?P<item>\d+)/$', 'detail'),
-    url(r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<actie>edit)/$', 'detail'),
-    (r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<actie>edit)/(?P<keuze>\w+)/'
-     r'(?P<selitem>\w+)/(?P<sortorder>\w+)/$', 'detail'),
-    url(r'^(?P<soort>(album|live))/(?P<item>\d+)/update/$', 'wijzig'),
+    url(r'^(?P<soort>(album|live))/(?P<item>\d+)/$', views.detail),
+    url(r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<actie>edit)/$', views.detail),
+    url(r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<actie>edit)/(?P<keuze>\w+)/'
+        r'(?P<selitem>\w+)/(?P<sortorder>\w+)/$', views.detail),
+    url(r'^(?P<soort>(album|live))/(?P<item>\d+)/update/$', views.wijzig),
     url(r'^(?P<soort>(album|live))/(?P<item>\d+)/update/(?P<keuze>\w+)/'
-     r'(?P<selitem>\w+)/(?P<sortorder>\w+)/$', 'wijzig'),
+        r'(?P<selitem>\w+)/(?P<sortorder>\w+)/$', views.wijzig),
 
     url(r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/nieuw/$',
-     'nieuw'),
+        views.nieuw),
     url(r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/add/$',
-     'wijzig'),
+        views.wijzig),
     url(r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/all/'
-     '(?P<actie>edit)/$', 'detail'),
+        '(?P<actie>edit)/$', views.detail),
     url(r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/all/'
-     r'(?P<actie>edit)/(?P<keuze>\w+)/(?P<selitem>\w+)/(?P<sortorder>\w+)/$',
-     'detail'),
+        r'(?P<actie>edit)/(?P<keuze>\w+)/(?P<selitem>\w+)/(?P<sortorder>\w+)/$',
+        views.detail),
     url(r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/'
-     r'(?P<subitem>(\d+|all))/update/$', 'wijzig'),
+        r'(?P<subitem>(\d+|all))/update/$', views.wijzig),
     url(r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<type>(track|opname))/'
-     r'(?P<subitem>(\d+|all))/update/(?P<keuze>\w+)/(?P<selitem>\w+)/'
-     r'(?P<sortorder>\w+)/$', 'wijzig'),
-    # url(r'^(?P<type>(track|opname))/(?P<subitem>\d+)/edit/$', 'wijzig'),
+        r'(?P<subitem>(\d+|all))/update/(?P<keuze>\w+)/(?P<selitem>\w+)/'
+        r'(?P<sortorder>\w+)/$', views.wijzig),
+    # url(r'^(?P<type>(track|opname))/(?P<subitem>\d+)/edit/$', views.wijzig),
 
     url(r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<keuze>\w+)/(?P<selitem>\w+)/'
-     r'(?P<sortorder>\w+)/$', 'detail'),
+        r'(?P<sortorder>\w+)/$', views.detail),
 
-    url(r'^(?P<soort>artiest)/nieuw/$', 'nieuw'),
-    url(r'^(?P<soort>artiest)/add/$', 'wijzig'),
-    url(r'^artiest/(?P<actie>lijst)/$', 'artiest'),
-    url(r'^artiest/(?P<actie>lijst)/(?P<filter>\w+)/$', 'artiest'),
-    url(r'^(?P<soort>artiest)/(?P<item>(\d+|all))/update/$', 'wijzig'),
-    # url(r'^artiest/(?P<actie>lijst)/edit/$',                                'wijzig'),
+    url(r'^(?P<soort>artiest)/nieuw/$', views.nieuw),
+    url(r'^(?P<soort>artiest)/add/$', views.wijzig),
+    url(r'^artiest/(?P<actie>lijst)/$', views.artiest),
+    url(r'^artiest/(?P<actie>lijst)/(?P<filter>\w+)/$', views.artiest),
+    url(r'^(?P<soort>artiest)/(?P<item>(\d+|all))/update/$', views.wijzig),
+    # url(r'^artiest/(?P<actie>lijst)/edit/$', views.wijzig),
     url(r'^(?P<soort>(album|live))/(?P<item>\d+)/(?P<keuze>\w+)/(?P<selitem>\w+)/'
-     r'(?P<sortorder>\w+)/$', 'detail'),
+        r'(?P<sortorder>\w+)/$', views.detail),
 
     # Uncomment this for admin:
     #     url(r'^admin/', include('django.contrib.admin.urls')),
-)
+]
