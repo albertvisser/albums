@@ -52,7 +52,7 @@ class Opname(models.Model):
 class Album(models.Model):
     """Gegevens van een songs-verzameling (album of concert)
     """
-    artist = models.ForeignKey(Act, related_name='album')
+    artist = models.ForeignKey(Act, related_name='album', on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     label = models.CharField(max_length=50, blank=True)
     release_year = models.PositiveSmallIntegerField(null=True)
