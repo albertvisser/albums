@@ -1,9 +1,0 @@
-syntax: glob
-
-*pyc
-*bak
-*~
-*.db
-oud/*
-*old_versions/*
-settings.py
