@@ -258,7 +258,7 @@ def detail(request, soort="", keuze="", selitem="", sortorder="", item="", type=
     return render(request, 'muziek/detail.html', info_dict)
 
 
-def artiest(request, actie="", filter=""):
+def artiest(request, soort="", actie="", filter=""):
     """toon een lijst met my.Act items
     """
     return render(request, 'muziek/artiesten.html',
