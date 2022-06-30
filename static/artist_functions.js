@@ -11,10 +11,10 @@ $(document).ready(function() {
     // code for adding a new artist
     var has_newartist = false;
     var newartist = '        <div class="grid_2">';
-    newartist += '            <input type="text" name="tNaam" id="tNaam0" value="{{x.first_name}}" size="10" />';
+    newartist += '            <input type="text" name="tNaam" id="tNaam0" value="" size="10" />';
     newartist += '        </div>';
     newartist += '        <div class="grid_8">';
-    newartist += '            <input type="text" name="tSort" id="tSort0" value="{{x.last_name}}" size="40"  />';
+    newartist += '            <input type="text" name="tSort" id="tSort0" value="" size="40"  />';
     newartist += '        </div>';
     newartist += '        <div class="grid_5">&nbsp;</div>';
     newartist += '        <div class="clear">&nbsp;</div>';
