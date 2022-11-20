@@ -1,0 +1,10 @@
+[testdir]
+unittests
+
+[testscripts]
+views: muziek/test_views.py
+util: muziek/test_helpers.py
+
+[testees]
+views: albums/muziek/views.py
+util: albums/muziek/helpers.py

@@ -2,6 +2,24 @@
 """
 from django.db import models
 
+o_soort = ('Cassette',
+           'CD: Enkel',
+           'CD: Dubbel',
+           'Vinyl: 1LP',
+           'Vinyl: 2LP',
+           'Vinyl: 3LP',
+           'Vinyl: single',
+           'Vinyl: 12" single',
+           'Tape',
+           'MP3 directory',
+           'Banshee music player',
+           'Clementine music player')
+o_oms = ('eigen doosje',
+         'map A-E',
+         'map F-S',
+         'map T-Z',
+         'map Live')
+
 
 class Act(models.Model):
     """Gegevens uitvoerende artiest(en)
@@ -36,6 +54,10 @@ class Song(models.Model):
 class Opname(models.Model):
     """Gegegens over een bepaalde vastlegging van een songs-verzameling
     """
+    # is dit een sqlite "feature"? ondanks max_length 10 worden langere omschrijvingen (zie boven)
+    # toch opgeslagen. In de admin webinterface wordt het maximum wel gerespecteerd
+    # of is het toch een Django dingetje dat alleen bedoeld is als een input beperking die je kunt
+    # gebruiken of niet?
     type = models.CharField(max_length=10, blank=True)
     oms = models.CharField(max_length=20, blank=True)
 
@@ -60,7 +82,7 @@ class Album(models.Model):
     bezetting = models.TextField(blank=True)
     additional = models.TextField(blank=True)
     credits = models.TextField(blank=True)
-    tracks = models.ManyToManyField(Song, related_name='album', null=True)
+    tracks = models.ManyToManyField(Song, related_name='album')
     opnames = models.ManyToManyField(Opname, related_name='album')
 
     def __str__(self):
