@@ -7,19 +7,19 @@ import albums.muziek.models as my
 # shouldn't these also be in the database?
 s_keuzes = (("alles", "1. Niet zoeken, alles tonen"),
             ("artiest", "2. Uitvoerende: ", "dflt"),
-            ("titel", "3. Titel"),
-            ("producer", "4. Producer"),
-            ("credits", "5. Vermelding in Credits"),
-            ("bezetting", "6. Vermelding in Bezetting"))
+            ("titel", "3. Tekst in Titel"),
+            ("producer", "4. Tekst in Producer"),
+            ("credits", "5. Tekst in Credits"),
+            ("bezetting", "6. Tekst in Bezetting"))
 s_sorts = (("artiest", "Uitvoerende"),
            ("titel", "Titel"),
            ("jaar", "Jaar", "dflt"),
            ("geen", "Niets"))
 l_keuzes = (("alles", "1. Niet zoeken, alles tonen"),
             ("artiest", "2. Uitvoerende: ", "dflt"),
-            ("locatie", "3. Locatie"),
-            ("datum", "4. Datum"),
-            ("bezetting", "5. Vermelding in Bezetting"))
+            ("locatie", "3. Tekst in Locatie"),
+            ("datum", "4. Tekst in Datum"),
+            ("bezetting", "5. Tekst in Bezetting"))
 l_sorts = (("artiest", "Uitvoerende"),
            ("locatie", "Locatie/datum", "dflt"),
            ("geen", "Niets"))
