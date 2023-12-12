@@ -60,26 +60,27 @@ def get_infodict_for_album(postdict, keuze, soort, selitem, sortorder):
         selitem = "alles"
     elif keuze == s_keuzes[1][0]:
         sel = sel.filter(artist=sel_id)
-        kop += " - selectie: artiest '{}'".format(my.Act.objects.get(id=sel_id).get_name())
+        selected = my.Act.objects.get(id=sel_id).get_name()
+        kop += f" - selectie: artiest '{selected}'"
         selitem = sel_id
     elif keuze == s_keuzes[2][0]:
         sel = sel.filter(name__icontains=zoektxt)
-        kop += " - selectie: titel bevat '%s'" % zoektxt
+        kop += f" - selectie: titel bevat '{zoektxt}'"
         selitem = zoektxt
         altsel = ''
     elif keuze == s_keuzes[3][0]:
         sel = sel.filter(produced_by__icontains=zoektxt)
-        kop += " - selectie: produced_by bevat '%s'" % zoektxt
+        kop += f" - selectie: produced_by bevat '{zoektxt}'"
         selitem = zoektxt
         altsel = ''
     elif keuze == s_keuzes[4][0]:
         sel = sel.filter(credits__icontains=zoektxt)
-        kop += " - selectie: credits bevat '%s'" % zoektxt
+        kop += f" - selectie: credits bevat '{zoektxt}'"
         selitem = zoektxt
         altsel = ''
     elif keuze == s_keuzes[5][0]:
         sel = sel.filter(bezetting__icontains=zoektxt)
-        kop += " - selectie: bezetting bevat '%s'" % zoektxt
+        kop += f" - selectie: bezetting bevat '{zoektxt}'"
         selitem = zoektxt
     else:
         meld = 'Gekozen selectie kon niet worden uitgevoerd'
@@ -146,21 +147,22 @@ def get_infodict_for_concert(postdict, keuze, soort, selitem, sortorder):
         selitem = "alles"
     elif keuze == l_keuzes[1][0]:
         sel = sel.filter(artist=sel_id)
-        kop += " - selectie: artiest '{}'".format(my.Act.objects.get(id=sel_id).get_name())
+        selected = format(my.Act.objects.get(id=sel_id).get_name())
+        kop += f" - selectie: artiest '{selected}'"
         selitem = sel_id
     elif keuze == l_keuzes[2][0]:
         sel = sel.filter(name__icontains=zoektxt)
-        kop += " - selectie: titel bevat locatie '%s'" % zoektxt
+        kop += f" - selectie: titel bevat locatie '{zoektxt}'"
         selitem = zoektxt
         altsel = ''
     elif keuze == l_keuzes[3][0]:
         sel = sel.filter(name__icontains=zoektxt)
-        kop += " - selectie: titel bevat datum '%s'" % zoektxt
+        kop += f" - selectie: titel bevat datum '{zoektxt}'"
         selitem = zoektxt
         altsel = ''
     elif keuze == l_keuzes[4][0]:
         sel = sel.filter(bezetting__icontains=zoektxt)
-        kop += " - selectie: bezetting bevat '%s'" % zoektxt
+        kop += f" - selectie: bezetting bevat '{zoektxt}'"
         selitem = zoektxt
     else:
         meld = 'Gekozen selectie kon niet worden uitgevoerd'
@@ -276,7 +278,7 @@ def do_artiest_update(postdict, item):
     else:
         all_artists = my.Act.objects.all().order_by('id')
         maxnum = int(all_artists.reverse()[0].id)
-        all_keys = [x for x in postdict if x.startswith('tNaam') and len(x) > 5]
+        all_keys = [x for x in postdict if x.startswith('tNaam') and len(x) > len('tNaam')]
         for key in all_keys:
             act = my.Act.objects.get(pk=int(key[5:]))
             first_name_entered = postdict[key]

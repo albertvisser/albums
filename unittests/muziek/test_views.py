@@ -5,7 +5,7 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'albums.settings')
 django.setup()
 from albums.muziek import views
-import albums.muziek.models as my
+# import albums.muziek.models as my  - datamanipulatie naar helpers verplaatst
 
 def test_index(monkeypatch, capsys):
     def mock_get_infodict():

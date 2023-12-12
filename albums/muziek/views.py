@@ -28,11 +28,8 @@ def select(request, soort="", keuze="", sortorder="", selitem=""):
 def sel_detail(request, soort="", item=""):
     "snel naar een ander album van dezelfde artiest"
     postdict = request.GET
-    return HttpResponseRedirect("/muziek/%s/%s/%s/%s/%s/" % (soort,
-                                                             postdict["selAlbum"],
-                                                             postdict['keuze'],
-                                                             postdict['selitem'],
-                                                             postdict['sortorder']))
+    return HttpResponseRedirect(f"/muziek/{soort}/{postdict['selAlbum']}/{postdict['keuze']}/"
+                                f"{postdict['selitem']}/{postdict['sortorder']}/")
 
 
 def detail(request, soort="", keuze="", selitem="", sortorder="", item="", type="", actie=""):
@@ -126,9 +123,8 @@ def update(request, soort="", item="", type="", subitem="", keuze="", selitem=""
     elif soort in ("album", "live"):
         album = util.do_album_update(postdict, soort, item)
     if keuze:
-        return HttpResponseRedirect("/muziek/%s/%s/%s/%s/%s/" % (soort, album.id, keuze,
-                                                                 selitem, sortorder))
-    return HttpResponseRedirect("/muziek/%s/%s/" % (soort, album.id))
+        return HttpResponseRedirect(f"/muziek/{soort}/{album.id}/{keuze}/{selitem}/{sortorder}/")
+    return HttpResponseRedirect(f"/muziek/{soort}/{album.id}/")
 
 
 # update voor track/all -> update_tracks

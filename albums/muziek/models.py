@@ -36,7 +36,7 @@ class Act(models.Model):
     def get_name(self):
         """geef naam terug zoals de gebruiker hem wil zien
         """
-        return " ".join((self.first_name, self.last_name)).strip()
+        return f"{self.first_name} {self.last_name}".strip()
 
 
 class Song(models.Model):
@@ -65,7 +65,7 @@ class Opname(models.Model):
         if self.type:
             result = self.type
             if self.oms:
-                result = ": ".join((self.type, self.oms))
+                result = f"{self.type}: {self.oms}"
         else:
             result = self.oms
         return result
@@ -90,7 +90,7 @@ class Album(models.Model):
         hlp = self.labelstr()
         if hlp:
             hlp = hlp.join(('(', ')'))
-        return "{} - {} {}".format(self.artist.get_name(), album, hlp)
+        return f"{self.artist.get_name()} - {album} {hlp}"
 
     def labelstr(self):
         """Geef label plus jaar terug (gescheiden door een komma)
@@ -100,7 +100,7 @@ class Album(models.Model):
             hlp = self.label.replace('(unknown)', '')
         if self.release_year:
             year = str(self.release_year)
-            hlp = ", ".join((hlp, year)) if hlp else year
+            hlp = f"{hlp}, {year}" if hlp else year
         return hlp
 
 ## class AlbumList(models.Model):
