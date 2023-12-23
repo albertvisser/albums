@@ -1,6 +1,5 @@
 import os
 import types
-import pytest
 import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'albums.settings')
 django.setup()
