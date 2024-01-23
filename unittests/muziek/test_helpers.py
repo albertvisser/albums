@@ -1,3 +1,5 @@
+"""unittests for ./albums/muziek/helpers.py
+"""
 import os
 import types
 import pytest
@@ -8,8 +10,11 @@ from django.http import QueryDict
 from albums.muziek import helpers
 import albums.muziek.models as my
 
+
 @pytest.mark.django_db
 def test_get_infodict_for_index(monkeypatch, capsys):
+    """unittest for helpers.get_infodict_for_index
+    """
     myact1 = my.Act.objects.create(last_name='us')
     myact2 = my.Act.objects.create(last_name='them')
     monkeypatch.setattr(helpers, 's_keuzes', 's_keuzes')
@@ -24,6 +29,8 @@ def test_get_infodict_for_index(monkeypatch, capsys):
 
 @pytest.mark.django_db
 def test_get_infodict_for_album(monkeypatch, capsys):
+    """unittest for helpers.get_infodict_for_album
+    """
     assert helpers.get_infodict_for_album({}, '', '', '', '') == {
             'meld': 'Gekozen selectie kon niet worden uitgevoerd'}
     assert helpers.get_infodict_for_album({}, 'alles', '', '', '') == {
@@ -115,6 +122,8 @@ def test_get_infodict_for_album(monkeypatch, capsys):
 
 @pytest.mark.django_db
 def test_get_infodict_for_concert(monkeypatch, capsys):
+    """unittest for helpers.get_infodict_for_concert
+    """
     assert helpers.get_infodict_for_concert({}, '', '', '', '') == {
             'meld': 'Gekozen selectie kon niet worden uitgevoerd'}
     assert helpers.get_infodict_for_concert({}, 'alles', '', '', '') == {
@@ -199,6 +208,8 @@ def test_get_infodict_for_concert(monkeypatch, capsys):
 
 @pytest.mark.django_db
 def test_get_infodict_for_detail(monkeypatch, capsys):
+    """unittest for helpers.get_infodict_for_detail
+    """
     # meerdere acts opvoeren
     artist = my.Act.objects.create(last_name='bladibla')
     artist2 = my.Act.objects.create(last_name='gargl')
@@ -236,8 +247,11 @@ def test_get_infodict_for_detail(monkeypatch, capsys):
     assert (data['sortorder'], list(data['track_list'])) == ('z', [track2, track])
     assert data['type'] == 'a'
 
+
 @pytest.mark.django_db
 def test_get_infodict_for_artists(monkeypatch, capsys):
+    """unittest for helpers.get_infodict_for_artists
+    """
     myact1 = my.Act.objects.create(last_name='een')
     myact2 = my.Act.objects.create(last_name='twee')
     myact3 = my.Act.objects.create(last_name='drie')
@@ -245,8 +259,11 @@ def test_get_infodict_for_artists(monkeypatch, capsys):
     assert list(data['artiesten']) == [myact1, myact2]
     assert data['filter'] == 'ee'
 
+
 @pytest.mark.django_db
 def test_get_infodict_for_new_item(monkeypatch, capsys):
+    """unittest for helpers.get_infodict_for_new_item
+    """
     # varianten: type (3e arg) track, opname of anders
     #            als anders dan keuze (5e arg) artiest of anders (enig overblijvende is album)
     # track en opname worden (nog) niet gebruikt omdat ik het openzetten anders doe
@@ -286,8 +303,11 @@ def test_get_infodict_for_new_item(monkeypatch, capsys):
     assert (data['keuze'], data['selitem'], data['sortorder']) == ('qqq', 'rrr', 'sss')
     assert (data['nieuw'], data['album'], data['o_soort']) == (True, myalbum, helpers.my.o_soort)
 
+
 @pytest.mark.django_db
 def test_do_artiest_update(monkeypatch, capsys):
+    """unittest for helpers.do_artiest_update
+    """
     name, surname = 'Albert', 'Visser'
     vervolg = '/muziek/artiest/lijst/'
     assert len(my.Act.objects.filter(first_name=name, last_name=surname)) == 0
@@ -312,8 +332,6 @@ def test_do_artiest_update(monkeypatch, capsys):
     postdict.setlist('tNaam', ['new', ''])
     postdict.setlist('tSort', ['item', 'also_new'])
     request = types.SimpleNamespace(POST=postdict)
-
-
     assert helpers.do_artiest_update(postdict, 'all') == vervolg + 'pass/'
     artists = list(my.Act.objects.all())
     artistcount += len(['tnaam0001', 'tnaam0002'])
@@ -328,6 +346,8 @@ def test_do_artiest_update(monkeypatch, capsys):
 
 @pytest.mark.django_db
 def test_do_track_update(monkeypatch, capsys):
+    """unittest for helpers.do_track_update
+    """
     myact = my.Act.objects.create(first_name='the', last_name='Others')
     myalbum = my.Album.objects.create(artist=myact, name='Something Completely Different')
     track1 = my.Song.objects.create(volgnr=1, name="And Now...")
@@ -368,6 +388,8 @@ def test_do_track_update(monkeypatch, capsys):
 
 @pytest.mark.django_db
 def test_do_rec_update(monkeypatch, capsys):
+    """unittest for helpers.do_rec_update
+    """
     myact = my.Act.objects.create(first_name='the', last_name='Others')
     myalbum = my.Album.objects.create(artist=myact, name='Something Completely Different')
     opname1 = my.Opname.objects.create(type='xxx', oms='yyyyyyyy')
@@ -409,6 +431,8 @@ def test_do_rec_update(monkeypatch, capsys):
 
 @pytest.mark.django_db
 def test_do_album_update(monkeypatch, capsys):
+    """unittest for helpers.do_album_update
+    """
     act1 = my.Act.objects.create(last_name='chachacha')
     act2 = my.Act.objects.create(last_name='nobody')
     postdict = {'selArtiest': act1.id, 'txtTitel': 'My Album', 'txtLabel': 'X', 'txtJaar': 1900,
