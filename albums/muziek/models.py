@@ -12,8 +12,7 @@ o_soort = ('Cassette',
            'Vinyl: 12" single',
            'Tape',
            'MP3 directory',
-           'Banshee music player',
-           'Clementine music player')
+           'Music Player library')
 o_oms = ('eigen doosje',
          'map A-E',
          'map F-S',
