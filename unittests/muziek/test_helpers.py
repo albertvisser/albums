@@ -259,7 +259,6 @@ def test_get_infodict_for_artists(monkeypatch, capsys):
     assert list(data['artiesten']) == [myact1, myact2]
     assert data['filter'] == 'ee'
 
-
 @pytest.mark.django_db
 def test_get_infodict_for_new_item(monkeypatch, capsys):
     """unittest for helpers.get_infodict_for_new_item
@@ -288,6 +287,11 @@ def test_get_infodict_for_new_item(monkeypatch, capsys):
     assert (data['keuze'], data['selitem'], data['sortorder']) == ('artiest', '2', 'sss')
     assert (data['nieuw'], data['actie']) == (True, 'edit')
     assert (data['act_id'], list(data['actlist'])) == (2, [artist, artist2])
+    data = helpers.get_infodict_for_new_item('xxx', 1, 'yyy', '1', '', '2', 'sss')
+    assert (data['kop'], data['soort']) == ('nieuwe xxx opname opvoeren', 'xxx')
+    assert (data['keuze'], data['selitem'], data['sortorder']) == ('', '2', 'sss')
+    assert (data['nieuw'], data['actie']) == (True, 'edit')
+    assert (data['act_id'], list(data['actlist'])) == (1, [artist, artist2])
 
     myalbum = my.Album.objects.create(artist=artist, name='Number one', label='x')
     track = my.Song.objects.create(volgnr=2, name="Name1")
@@ -333,6 +337,18 @@ def test_do_artiest_update(monkeypatch, capsys):
     postdict.setlist('tSort', ['item', 'also_new'])
     request = types.SimpleNamespace(POST=postdict)
     assert helpers.do_artiest_update(postdict, 'all') == vervolg + 'pass/'
+    artists = list(my.Act.objects.all())
+    artistcount += len(['tnaam0001', 'tnaam0002'])
+    assert len(artists) == artistcount
+    assert (artists[0].first_name, artists[0].last_name) == ('Albert', 'Visser')
+    assert (artists[1].first_name, artists[1].last_name) == ('the', 'other')
+    assert (artists[2].first_name, artists[2].last_name) == ('change', 'places')
+    assert (artists[3].first_name, artists[3].last_name) == ('no', 'changes')
+    assert (artists[4].first_name, artists[4].last_name) == ('new', 'item')
+    assert (artists[5].first_name, artists[5].last_name) == ('', 'also_new')
+    postdict.update({'filter': ''})
+    request = types.SimpleNamespace(POST=postdict)
+    assert helpers.do_artiest_update(postdict, 'all') == vervolg
     artists = list(my.Act.objects.all())
     artistcount += len(['tnaam0001', 'tnaam0002'])
     assert len(artists) == artistcount
@@ -435,6 +451,7 @@ def test_do_album_update(monkeypatch, capsys):
     """
     act1 = my.Act.objects.create(last_name='chachacha')
     act2 = my.Act.objects.create(last_name='nobody')
+    act3 = my.Act.objects.create(last_name='xxxxxx')
     postdict = {'selArtiest': act1.id, 'txtTitel': 'My Album', 'txtLabel': 'X', 'txtJaar': 1900,
                 'txtProduced': 'me', 'txtCredits': 'all my own work', 'txtBezetting': 'just me',
                 'txtAdditional': "No, that's all"}
@@ -447,5 +464,19 @@ def test_do_album_update(monkeypatch, capsys):
                 'txtAdditional': "No, that's all"}
     data = helpers.do_album_update(postdict, 'album', data.id)
     assert (data.artist, data.name, data.label) == (act2, 'My Album!', 'X')
+    assert (data.release_year, data.produced_by, data.credits) == (1900, 'me', 'all my own work')
+    assert (data.bezetting, data.additional) == ('just me', "No, that's all")
+    postdict = {'selArtiest': act3.id, 'txtTitel': 'My Album!', 'txtLabel': 'X', 'txtJaar': 1900,
+                'txtProduced': 'me', 'txtCredits': 'all my own work', 'txtBezetting': 'just me',
+                'txtAdditional': "No, that's all"}
+    data = helpers.do_album_update(postdict, 'live', data.id)
+    assert (data.artist, data.name, data.label) == (act3, 'My Album!', 'X')
+    assert (data.release_year, data.produced_by, data.credits) == (1900, 'me', 'all my own work')
+    assert (data.bezetting, data.additional) == ('just me', "No, that's all")
+    postdict = {'selArtiest': act3.id, 'txtTitel': 'My Album!', 'txtLabel': 'X', 'txtJaar': 1900,
+                'txtProduced': 'me', 'txtCredits': 'all my own work', 'txtBezetting': 'just me',
+                'txtAdditional': "No, that's all"}
+    data = helpers.do_album_update(postdict, 'live', data.id)
+    assert (data.artist, data.name, data.label) == (act3, 'My Album!', 'X')
     assert (data.release_year, data.produced_by, data.credits) == (1900, 'me', 'all my own work')
     assert (data.bezetting, data.additional) == ('just me', "No, that's all")

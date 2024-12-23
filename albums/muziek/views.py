@@ -120,7 +120,7 @@ def update(request, soort="", item="", type="", subitem="", keuze="", selitem=""
         album = util.do_track_update(postdict, item, subitem)
     elif type == "opname":
         album = util.do_rec_update(postdict, item, subitem)
-    elif soort in ("album", "live"):
+    else:   # if soort in ("album", "live"):  andere soorten kennen we niet
         album = util.do_album_update(postdict, soort, item)
     if keuze:
         return HttpResponseRedirect(f"/muziek/{soort}/{album.id}/{keuze}/{selitem}/{sortorder}/")

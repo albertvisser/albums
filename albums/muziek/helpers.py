@@ -235,6 +235,7 @@ def get_infodict_for_artists(filter):
 
 
 def get_infodict_for_new_item(soort, item, type, artiest, keuze, selitem, sortorder):
+    "ophalen variabelen voor scherm"
     data = {"kop": soort.join(("nieuwe ", " opname opvoeren")),
             "soort": soort,
             "keuze": keuze,
