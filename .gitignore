@@ -5,9 +5,10 @@ __pycache__/
 
 # development stuff
 logs/
-*.swp
-*.swo
+.coverage
 projdocs*
+.sessionrc
 
 # passwords e.d.
-settings.py
+albums/settings.py
+static/admin
